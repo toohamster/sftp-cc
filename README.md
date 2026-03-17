@@ -6,6 +6,10 @@ A universal SFTP upload tool for Claude Code. Supports incremental upload, autom
 
 **Zero external dependencies** — pure shell implementation, only requires system-built-in `sftp`, `git`, `grep`, `sed`.
 
+## Why
+
+When using PhpStorm, the built-in SFTP extension automatically syncs every file change to the dev server — create, modify, or delete, it just works seamlessly. After switching to Claude Code, that ability was lost. Every time Claude made changes to the code, I had to manually pull them on the test server. That friction really slowed things down. So I built this tool to bring that auto-sync experience into Claude Code — just say "sync code to server" and it's done.
+
 ## Installation
 
 ### Option 1: Plugin Marketplace (Recommended)
