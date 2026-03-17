@@ -8,7 +8,7 @@
 
 ```bash
 # 添加 marketplace
-/plugin marketplace add your-username/sftp-cc-toomaster
+/plugin marketplace add https://github.com/toohamster/sftp-cc-toomaster
 
 # 安装插件
 /plugin install sftp-cc-toomaster@sftp-cc-toomaster
@@ -18,10 +18,10 @@
 
 ```bash
 # 克隆仓库
-git clone <repo-url> sftp-cc-toomaster
+git clone https://github.com/toohamster/sftp-cc-toomaster.git
 
 # 安装到目标项目
-bash /path/to/sftp-cc-toomaster/install.sh /path/to/your-project
+bash sftp-cc-toomaster/install.sh /path/to/your-project
 ```
 
 手动安装后的目录结构：

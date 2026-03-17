@@ -12,7 +12,7 @@ A universal SFTP upload tool for Claude Code. Supports incremental upload, autom
 
 ```bash
 # Add marketplace
-/plugin marketplace add toohamster/sftp-cc-toomaster
+/plugin marketplace add https://github.com/toohamster/sftp-cc-toomaster
 
 # Install plugin
 /plugin install sftp-cc-toomaster@sftp-cc-toomaster
@@ -21,8 +21,11 @@ A universal SFTP upload tool for Claude Code. Supports incremental upload, autom
 ### Option 2: Manual Installation
 
 ```bash
-git clone <repo-url> sftp-cc-toomaster
-bash /path/to/sftp-cc-toomaster/install.sh /path/to/your-project
+# Clone repository
+git clone https://github.com/toohamster/sftp-cc-toomaster.git
+
+# Install to your project
+bash sftp-cc-toomaster/install.sh /path/to/your-project
 ```
 
 ## Configuration
