@@ -1,0 +1,11 @@
+{
+  "name": "sftp-cc-toomaster",
+  "description": "通用 SFTP 上传工具，支持增量上传、私钥自动绑定与权限修正。零外部依赖。",
+  "version": "1.0.0",
+  "author": {
+    "name": "toohamster"
+  },
+  "keywords": ["sftp", "upload", "deploy", "sync", "ssh"],
+  "category": "deployment",
+  "license": "MIT"
+}

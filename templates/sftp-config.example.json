@@ -1,0 +1,15 @@
+{
+  "host": "",
+  "port": 22,
+  "username": "",
+  "remote_path": "",
+  "local_path": ".",
+  "private_key": "",
+  "excludes": [
+    ".git",
+    ".claude",
+    "node_modules",
+    ".env",
+    ".DS_Store"
+  ]
+}
