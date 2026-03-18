@@ -43,7 +43,7 @@ your-project/
 
 ## 配置
 
-### 命令行快速配置
+### 第一步：初始化服务器配置
 
 ```bash
 # Plugin Marketplace 安装后
@@ -59,27 +59,31 @@ bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
   --remote-path /var/www/html
 ```
 
-### 直接编辑 JSON
-
-编辑 `.claude/sftp-cc/sftp-config.json`：
-
-```json
-{
-  "host": "your-server.com",
-  "port": 22,
-  "username": "deploy",
-  "remote_path": "/var/www/html",
-  "local_path": ".",
-  "private_key": "",
-  "excludes": [".git", ".claude", "node_modules", ".env", ".DS_Store"]
-}
-```
-
-### 放置私钥
+### 第二步：放置私钥
 
 ```bash
 cp ~/.ssh/id_rsa .claude/sftp-cc/
 ```
+
+**私钥自动绑定说明：**
+
+- 如果在运行 `sftp-init.sh` **之前**放入私钥 → 会自动绑定，无需额外操作
+- 如果在运行 `sftp-init.sh` **之后**才放入私钥 → 手动绑定：
+
+  **方式 A：让 Claude 执行（推荐）**
+
+  在项目目录中对 Claude 说：
+  > "绑定 SFTP 私钥"
+
+  **方式 B：直接运行脚本**
+
+  ```bash
+  # Plugin 安装后
+  bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-keybind.sh
+
+  # 手动安装后
+  bash .claude/skills/sftp-cc-toomaster/scripts/sftp-keybind.sh
+  ```
 
 私钥会被自动检测、自动绑定到配置、自动修正权限为 600。
 

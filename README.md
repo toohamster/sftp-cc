@@ -34,36 +34,47 @@ bash sftp-cc-toomaster/install.sh /path/to/your-project
 
 ## Configuration
 
-### Quick Setup via CLI
+### Step 1: Initialize server config
 
 ```bash
+# After Plugin Marketplace installation
 bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh \
+  --host your-server.com \
+  --username deploy \
+  --remote-path /var/www/html
+
+# After manual installation
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
   --host your-server.com \
   --username deploy \
   --remote-path /var/www/html
 ```
 
-### Edit JSON Directly
-
-Edit `.claude/sftp-cc/sftp-config.json`:
-
-```json
-{
-  "host": "your-server.com",
-  "port": 22,
-  "username": "deploy",
-  "remote_path": "/var/www/html",
-  "local_path": ".",
-  "private_key": "",
-  "excludes": [".git", ".claude", "node_modules", ".env", ".DS_Store"]
-}
-```
-
-### Place Your Private Key
+### Step 2: Place your private key
 
 ```bash
 cp ~/.ssh/id_rsa .claude/sftp-cc/
 ```
+
+**Private key auto-binding:**
+
+- If you place the key **before** running `sftp-init.sh` → auto-binding happens automatically
+- If you place the key **after** running `sftp-init.sh` → bind it manually:
+
+  **Option A: Let Claude do it (recommended)**
+
+  Just tell Claude in your project:
+  > "bind SFTP private key"
+
+  **Option B: Run the script directly**
+
+  ```bash
+  # Plugin installation
+  bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-keybind.sh
+
+  # Manual installation
+  bash .claude/skills/sftp-cc-toomaster/scripts/sftp-keybind.sh
+  ```
 
 The key will be auto-detected, auto-bound to the config, and permissions auto-corrected to `600`.
 
