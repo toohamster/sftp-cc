@@ -362,6 +362,19 @@ push_directory() {
     return $rc
 }
 
+# ====== 辅助函数：确保远程目录存在 ======
+ensure_remote_dir() {
+    step "确保远程目录存在..."
+    # 使用 SSH 执行 mkdir -p 创建远程目录（忽略已存在的情况）
+    ssh -i "$PRIVATE_KEY" -o StrictHostKeyChecking=no -o BatchMode=yes \
+        "$SFTP_TARGET" "mkdir -p '$REMOTE_PATH'" 2>/dev/null
+    if [ $? -ne 0 ]; then
+        # 如果 SSH 命令失败（如 BatchMode 无密码），尝试不带 BatchMode
+        ssh -i "$PRIVATE_KEY" -o StrictHostKeyChecking=no \
+            "$SFTP_TARGET" "mkdir -p '$REMOTE_PATH'" 2>/dev/null
+    fi
+}
+
 # ====== 推送整个项目（全量） ======
 push_project_full() {
     step "全量扫描项目文件..."
@@ -435,6 +448,8 @@ push_project_full() {
     fi
 
     step "正在上传 $file_count 个文件到 $SFTP_TARGET:$REMOTE_PATH ..."
+    # 确保远程目录存在
+    ensure_remote_dir
     # shellcheck disable=SC2086
     sftp $SFTP_OPTS -b "$batch_file" "$SFTP_TARGET"
     local rc=$?
@@ -558,6 +573,8 @@ push_incremental() {
     fi
 
     step "正在增量同步到 $SFTP_TARGET:$REMOTE_PATH (上传 ${#upload_files[@]}, 删除 ${#delete_files[@]}) ..."
+    # 确保远程目录存在
+    ensure_remote_dir
     # shellcheck disable=SC2086
     sftp $SFTP_OPTS -b "$batch_file" "$SFTP_TARGET"
     local rc=$?
