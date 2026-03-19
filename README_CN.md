@@ -59,7 +59,43 @@ bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
   --remote-path /var/www/html
 ```
 
-### 第二步：放置私钥
+### 第二步：部署 SSH 公钥到服务器
+
+**方式 A：在本机终端运行（推荐）**
+
+打开终端运行：
+```bash
+# Plugin 安装后
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-copy-id.sh
+
+# 手动安装后
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-copy-id.sh
+```
+
+**方式 B：直接使用 ssh-copy-id**
+```bash
+# 找到公钥（通常在 ~/.ssh/id_ed25519.pub 或 ~/.ssh/id_rsa.pub）
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@your-server.com
+```
+
+**方式 C：手动部署**
+```bash
+# 复制公钥内容
+cat ~/.ssh/id_ed25519.pub | pbcopy  # macOS
+# 或
+cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard  # Linux
+
+# SSH 登录服务器并粘贴到 authorized_keys
+ssh username@your-server.com
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+nano ~/.ssh/authorized_keys  # 粘贴公钥内容
+chmod 600 ~/.ssh/authorized_keys
+```
+
+这是一次性操作，完成后即可使用无密码 SSH 认证进行 SFTP 上传。
+
+### 第三步：放置私钥
 
 ```bash
 cp ~/.ssh/id_rsa .claude/sftp-cc/

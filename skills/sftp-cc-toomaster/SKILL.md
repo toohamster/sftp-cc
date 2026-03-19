@@ -59,7 +59,23 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh \
 - 自动调用 keybind 绑定私钥
 - 参数可选，也可事后编辑 JSON 文件
 
-### 2. sftp-keybind.sh — 私钥自动绑定
+### 2. sftp-copy-id.sh — 部署 SSH 公钥到服务器
+
+```bash
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-copy-id.sh
+```
+- 从配置读取服务器信息（host, username）
+- 自动查找公钥文件（优先使用项目私钥对应的 .pub 文件，否则使用系统默认）
+- 调用 `ssh-copy-id` 将公钥添加到服务器的 `~/.ssh/authorized_keys`
+- 支持密码交互式登录（需在本地终端运行）
+
+**首次配置推荐流程：**
+1. 运行 `sftp-init.sh` 配置服务器信息
+2. 在**本地终端**运行 `sftp-copy-id.sh` 部署公钥（输入一次密码）
+3. 运行 `sftp-keybind.sh` 绑定私钥（如果私钥已放入 `.claude/sftp-cc/`）
+4. 运行 `sftp-push.sh` 上传文件
+
+### 3. sftp-keybind.sh — 私钥自动绑定
 ```bash
 bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-keybind.sh
 ```
@@ -97,9 +113,10 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh -v
 
 1. **检查配置是否存在**: 查看 `.claude/sftp-cc/sftp-config.json` 是否存在
 2. **如果不存在**: 询问用户服务器信息（host, username, remote_path），然后运行 `sftp-init.sh`
-3. **检查私钥**: 查看 `.claude/sftp-cc/` 下是否有私钥文件
-4. **如果没有私钥**: 提示用户将私钥文件放入 `.claude/sftp-cc/` 目录
-5. **执行上传**: 运行 `sftp-push.sh` 完成上传
+3. **部署公钥到服务器**: 在本地终端运行 `sftp-copy-id.sh`（需要输入服务器密码）
+4. **检查私钥**: 查看 `.claude/sftp-cc/` 下是否有私钥文件
+5. **如果没有私钥**: 提示用户将私钥文件放入 `.claude/sftp-cc/` 目录
+6. **执行上传**: 运行 `sftp-push.sh` 完成上传
 
 ## 操作注意事项
 

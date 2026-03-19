@@ -50,7 +50,43 @@ bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
   --remote-path /var/www/html
 ```
 
-### Step 2: Place your private key
+### Step 2: Deploy SSH public key to server
+
+**Option A: Run in your native terminal (recommended)**
+
+Open your terminal and run:
+```bash
+# Plugin installation
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-copy-id.sh
+
+# Manual installation
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-copy-id.sh
+```
+
+**Option B: Use ssh-copy-id directly**
+```bash
+# Find your public key (usually ~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub)
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@your-server.com
+```
+
+**Option C: Manual deployment**
+```bash
+# Copy public key content
+cat ~/.ssh/id_ed25519.pub | pbcopy  # macOS
+# or
+cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard  # Linux
+
+# SSH to server and paste into authorized_keys
+ssh username@your-server.com
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+nano ~/.ssh/authorized_keys  # paste your public key
+chmod 600 ~/.ssh/authorized_keys
+```
+
+This one-time setup enables password-less SSH authentication for SFTP uploads.
+
+### Step 3: Place your private key
 
 ```bash
 cp ~/.ssh/id_rsa .claude/sftp-cc/
