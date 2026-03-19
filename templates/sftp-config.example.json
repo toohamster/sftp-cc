@@ -5,6 +5,7 @@
   "remote_path": "",
   "local_path": ".",
   "private_key": "",
+  "language": "en",
   "excludes": [
     ".git",
     ".claude",

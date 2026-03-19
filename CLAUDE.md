@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 sftp-cc-toomaster 是一个 Claude Code Plugin，提供通用 SFTP 上传能力。支持通过 Plugin Marketplace 安装，也支持手动安装。
 
+**多语言支持 (i18n)**：支持英语 (en)、中文 (zh)、日语 (ja)。语言配置存储在 `.claude/sftp-cc/sftp-config.json` 的 `language` 字段。
+
 ## Architecture
 
 ```
@@ -19,11 +21,15 @@ sftp-cc-toomaster/
 │   ├── sftp-push.sh                # 核心上传脚本（sftp batch mode）
 │   ├── sftp-init.sh                # 初始化配置（创建 sftp-config.json）
 │   ├── sftp-keybind.sh             # 私钥自动绑定 + chmod 600
-│   └── sftp-copy-id.sh             # 部署 SSH 公钥到服务器（用户在本机终端运行）
+│   ├── sftp-copy-id.sh             # 部署 SSH 公钥到服务器（用户在本机终端运行）
+│   └── i18n.sh                     # 国际化工具（支持 en/zh/ja 三语言）
 ├── templates/
 │   └── sftp-config.example.json    # 配置模板
 ├── skill.md                        # Skill 定义（手动安装兼容）
-└── install.sh                      # 手动安装脚本（非 marketplace 场景）
+├── install.sh                      # 手动安装脚本（支持 --language 选项）
+├── README.md                       # 英文文档
+├── README_CN.md                    # 中文文档
+└── README_JP.md                    # 日文文档
 ```
 
 **Plugin 安装后**：plugin 缓存到 `~/.claude/plugins/marketplaces/`，SKILL.md 中通过 `${CLAUDE_PLUGIN_ROOT}` 引用脚本路径。配置和私钥始终在用户项目的 `.claude/sftp-cc/`。
@@ -36,6 +42,7 @@ sftp-cc-toomaster/
 - 推送整个项目时用 `find` + excludes 生成文件列表，再构建 sftp batch 文件
 - 纯 shell 解析 JSON（grep/sed），零外部依赖
 - 同时维护两套安装方式：Plugin Marketplace（SKILL.md）和手动安装（skill.md + install.sh）
+- i18n 采用变量式多语言方案（$MSG_XXX），非 gettext，零外部依赖
 
 ## Testing Changes
 

@@ -1,10 +1,37 @@
 # sftp-cc-toomaster
 
-[中文文档](README_CN.md)
+[中文文档](README_CN.md) | [日本語ドキュメント](README_JP.md)
 
 A universal SFTP upload tool for Claude Code. Supports incremental upload, automatic private key binding, and permission correction.
 
 **Zero external dependencies** — pure shell implementation, only requires system-built-in `sftp`, `git`, `grep`, `sed`.
+
+## Multi-language Support
+
+This tool supports **English**, **Chinese (中文)**, and **Japanese (日本語)**.
+
+### Setting Language
+
+**Option 1: During installation**
+```bash
+# English (default)
+bash install.sh --language en /path/to/project
+
+# Chinese
+bash install.sh --language zh /path/to/project
+
+# Japanese
+bash install.sh --language ja /path/to/project
+```
+
+**Option 2: Edit config file**
+
+Edit `.claude/sftp-cc/sftp-config.json`:
+```json
+{
+  "language": "en"  // or "zh" or "ja"
+}
+```
 
 ## Why
 

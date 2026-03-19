@@ -1,0 +1,215 @@
+# sftp-cc-toomaster
+
+[English Documentation](README.md) | [中文文档](README_CN.md)
+
+Claude Code 用の汎用 SFTP アップロードツール。増分アップロード、秘密鍵の自動バインド、権限修正をサポートします。
+
+**外部依存関係ゼロ** — ピュアシェル実装。システム標準の `sftp`、`git`、`grep`、`sed` のみで動作します。
+
+## 多言語サポート
+
+このツールは **英語（English）**、**中国語（中文）**、**日本語** をサポートしています。
+
+### 言語の設定
+
+**方法 1: インストール時に指定**
+```bash
+# 英語（デフォルト）
+bash install.sh --language en /path/to/project
+
+# 中国語
+bash install.sh --language zh /path/to/project
+
+# 日本語
+bash install.sh --language ja /path/to/project
+```
+
+**方法 2: 設定ファイルを編集**
+
+`.claude/sftp-cc/sftp-config.json` を編集：
+```json
+{
+  "language": "ja"  // または "en" または "zh"
+}
+```
+
+## なぜこのツールを作ったか
+
+PhpStorm を使っていた頃、内置の SFTP 拡張機能がファイルの変更を自動的に開発サーバーに同期してくれていました。作成、変更、削除、すべてシームレスに動作します。しかし Claude Code に乗り換えて後、その機能を失いました。Claude がコードを変更するたびに、テストサーバーで手動でプルする必要があり、その摩擦が開発スピードを大きく低下させました。このツールはその自動同期体験を Claude Code に持ち込むために作りました。ただ「sync code to server」と言うだけで完了します。
+
+## インストール
+
+### 方法 1: Plugin Marketplace（推奨）
+
+```bash
+# マーケットプレイスを追加
+/plugin marketplace add https://github.com/toohamster/sftp-cc-toomaster
+
+# プラグインをインストール
+/plugin install sftp-cc-toomaster@sftp-cc-toomaster
+```
+
+### 方法 2: 手動インストール
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/toohamster/sftp-cc-toomaster.git
+
+# プロジェクトにインストール
+bash sftp-cc-toomaster/install.sh /path/to/your-project
+```
+
+手動インストール後のディレクトリ構造：
+```
+your-project/
+├── .claude/
+│   ├── skills/
+│   │   └── sftp-cc-toomaster/
+│   │       ├── skill.md
+│   │       └── scripts/
+│   └── sftp-cc/
+│       ├── sftp-config.json    ← サーバー設定
+│       └── id_rsa              ← あなたの秘密鍵
+```
+
+## 設定
+
+### ステップ 1: サーバー設定の初期化
+
+```bash
+# Plugin Marketplace インストール後
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh \
+  --host your-server.com \
+  --username deploy \
+  --remote-path /var/www/html
+
+# 手動インストール後
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
+  --host your-server.com \
+  --username deploy \
+  --remote-path /var/www/html
+```
+
+### ステップ 2: SSH 公開鍵をサーバーにデプロイ
+
+**方法 A: ネイティブターミナルで実行（推奨）**
+
+ターミナルを開いて実行：
+```bash
+# Plugin インストール後
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-copy-id.sh
+
+# 手動インストール後
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-copy-id.sh
+```
+
+**方法 B: ssh-copy-id を直接使用**
+```bash
+# 公開鍵を見つける（通常 ~/.ssh/id_ed25519.pub または ~/.ssh/id_rsa.pub）
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@your-server.com
+```
+
+**方法 C: 手動デプロイ**
+```bash
+# 公開鍵の内容をコピー
+cat ~/.ssh/id_ed25519.pub | pbcopy  # macOS
+# または
+cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard  # Linux
+
+# SSH でサーバーにログインし、authorized_keys に貼り付け
+ssh username@your-server.com
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+nano ~/.ssh/authorized_keys  # 公開鍵の内容を貼り付け
+chmod 600 ~/.ssh/authorized_keys
+```
+
+このワンタイム設定で、SFTP アップロード用のパスワードレス SSH 認証が有効になります。
+
+### ステップ 3: 秘密鍵を配置
+
+```bash
+cp ~/.ssh/id_rsa .claude/sftp-cc/
+```
+
+**秘密鍵の自動バインド：**
+
+- `sftp-init.sh` 実行**前**に鍵を配置した場合 → 自動でバインドされます
+- `sftp-init.sh` 実行**後**に鍵を配置した場合 → 手動でバインド：
+
+  **方法 A: Claude に実行させる（推奨）**
+
+  プロジェクト内で Claude に伝える：
+  > "bind SFTP private key"
+
+  **方法 B: スクリプトを直接実行**
+
+  ```bash
+  # Plugin インストール後
+  bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-keybind.sh
+
+  # 手動インストール後
+  bash .claude/skills/sftp-cc-toomaster/scripts/sftp-keybind.sh
+  ```
+
+鍵は自動検出され、設定に自動バインドされ、権限が自動的に `600` に修正されます。
+
+サポートされている鍵フォーマット：`id_rsa`、`id_ed25519`、`id_ecdsa`、`*.pem`、`*.key`
+
+## 使い方
+
+Claude Code で自然言語でトリガー：
+
+- "sync code to server"
+- "upload files to server"
+- "deploy code to server"
+- "sftp upload"
+- "sftp sync"
+
+**注意**: "push" は `git push` との競合を避けるため、このスキルをトリガーしません。
+
+スクリプトを直接呼び出すこともできます：
+
+```bash
+# 増分アップロード（デフォルト、変更されたファイルのみ）
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh
+
+# 増分アップロード + ローカルで削除されたファイルをリモートでも削除
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh --delete
+
+# 完全アップロード（すべてのファイル）
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh --full
+
+# 特定のファイルをアップロード
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh src/index.php
+
+# 特定のディレクトリをアップロード
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh -d src/
+
+# ドライラン（プレビューのみ）
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh -n
+```
+
+## 増分アップロード
+
+- 各アップロード成功後、現在の git コミットハッシュが `.claude/sftp-cc/.last-push` に保存されます
+- 次回アップロード時、`git diff` で前回のアップロードからの変更を検出 — 変更/新規ファイルのみアップロード
+- 一時停止された変更、未停止の変更、未トラックの新規ファイルを検出
+- 初回実行時またはマーカーがない場合、完全アップロードにフォールバック
+- `--full` で強制完全アップロード
+- `--delete` でローカルで削除されたファイルをリモートでも同期削除（デフォルトではオフ、誤操作防止）
+
+## 依存関係
+
+- `sftp` — SSH ファイル転送（システム標準）
+- `git` — プロジェクトルート検出と増分変更検出
+- **jq は不要** — ピュアシェル JSON パース
+
+## セキュリティ
+
+- `.claude/sftp-cc/` ディレクトリには秘密鍵とサーバー情報が含まれ、自動的に `.gitignore` に追加されます
+- 秘密鍵の権限は自動的に `600` に修正されます
+
+## ライセンス
+
+[MIT](LICENSE)

@@ -1,6 +1,35 @@
 # sftp-cc-toomaster
 
+[English Documentation](README.md) | [日本語ドキュメント](README_JP.md)
+
 通用 SFTP 上传工具，Claude Code Plugin。支持增量上传、私钥自动绑定与权限修正。
+
+## 多语言支持
+
+本工具支持 **英文（English）**、**中文** 和 **日文（日本語）**。
+
+### 设置语言
+
+**方式一：安装时指定**
+```bash
+# 英文（默认）
+bash install.sh --language en /path/to/project
+
+# 中文
+bash install.sh --language zh /path/to/project
+
+# 日文
+bash install.sh --language ja /path/to/project
+```
+
+**方式二：编辑配置文件**
+
+编辑 `.claude/sftp-cc/sftp-config.json`：
+```json
+{
+  "language": "en"  // 或 "zh" 或 "ja"
+}
+```
 
 ## 为什么做这个工具
 

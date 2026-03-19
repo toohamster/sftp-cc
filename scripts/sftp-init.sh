@@ -1,17 +1,21 @@
 #!/bin/bash
-# sftp-init.sh — 初始化 SFTP 配置
-# 创建 .claude/sftp-cc/ 目录并生成 sftp-config.json
-# 零外部依赖，纯 shell 实现
+# sftp-init.sh — Initialize SFTP configuration
+# Create .claude/sftp-cc/ directory and generate sftp-config.json
+# Zero external dependencies, pure shell
 
 set -euo pipefail
 
-# 定位项目根目录
+# Locate project root directory
 PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 SFTP_CC_DIR="$PROJECT_ROOT/.claude/sftp-cc"
 CONFIG_FILE="$SFTP_CC_DIR/sftp-config.json"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# 颜色输出
+# Initialize language (use English as default for init, config may not exist yet)
+source "$SCRIPT_DIR/i18n.sh"
+init_lang "$CONFIG_FILE"
+
+# Color output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -21,7 +25,7 @@ info()  { echo -e "${GREEN}[init]${NC} $*"; }
 warn()  { echo -e "${YELLOW}[init]${NC} $*"; }
 error() { echo -e "${RED}[init]${NC} $*" >&2; }
 
-# ====== 纯 shell JSON 工具函数 ======
+# Pure shell JSON tools
 json_get() {
     local file="$1" key="$2" default="${3:-}"
     local val
@@ -49,7 +53,7 @@ json_set_num() {
     mv "$tmp" "$file"
 }
 
-# 解析参数
+# Parse arguments
 HOST=""
 PORT="22"
 USERNAME=""
@@ -65,26 +69,26 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: sftp-init.sh [OPTIONS]"
             echo ""
             echo "Options:"
-            echo "  --host HOST           SFTP 服务器地址"
-            echo "  --port PORT           SFTP 端口 (默认 22)"
-            echo "  --username USER       登录用户名"
-            echo "  --remote-path PATH    远程目标路径"
-            echo "  -h, --help            显示帮助"
+            echo "  --host HOST           SFTP server address"
+            echo "  --port PORT           SFTP port (default: 22)"
+            echo "  --username USER       Login username"
+            echo "  --remote-path PATH    Remote target path"
+            echo "  -h, --help            Show this help"
             exit 0
             ;;
-        *) error "未知参数: $1"; exit 1 ;;
+        *) error "$(printf "$MSG_UNKNOWN_PARAMETER" "$1")"; exit 1 ;;
     esac
 done
 
-# 创建目录
+# Create directory
 mkdir -p "$SFTP_CC_DIR"
-info "已创建配置目录: $SFTP_CC_DIR"
+info "$(printf "$MSG_CONFIG_DIR_CREATED" "$SFTP_CC_DIR")"
 
-# 创建配置文件
+# Create config file
 if [ -f "$CONFIG_FILE" ]; then
-    warn "配置文件已存在: $CONFIG_FILE"
+    warn "$(printf "$MSG_CONFIG_FILE_EXISTS" "$CONFIG_FILE")"
 else
-    # 尝试从模板复制
+    # Try to copy from template
     TEMPLATE=""
     POSSIBLE_TEMPLATES=(
         "$SCRIPT_DIR/../templates/sftp-config.example.json"
@@ -100,7 +104,7 @@ else
     if [ -n "$TEMPLATE" ]; then
         cp "$TEMPLATE" "$CONFIG_FILE"
     else
-        # 内联创建默认配置
+        # Inline default config
         cat > "$CONFIG_FILE" <<'JSONEOF'
 {
   "host": "",
@@ -109,6 +113,7 @@ else
   "remote_path": "",
   "local_path": ".",
   "private_key": "",
+  "language": "en",
   "excludes": [
     ".git",
     ".claude",
@@ -119,39 +124,39 @@ else
 }
 JSONEOF
     fi
-    info "已创建配置文件: $CONFIG_FILE"
+    info "$(printf "$MSG_CONFIG_FILE_CREATED" "$CONFIG_FILE")"
 fi
 
-# 填入用户提供的参数
+# Fill in user-provided values
 [ -n "$HOST" ]        && json_set "$CONFIG_FILE" "host" "$HOST"
 [ -n "$USERNAME" ]    && json_set "$CONFIG_FILE" "username" "$USERNAME"
 [ -n "$REMOTE_PATH" ] && json_set "$CONFIG_FILE" "remote_path" "$REMOTE_PATH"
 [ "$PORT" != "22" ]   && json_set_num "$CONFIG_FILE" "port" "$PORT"
 
 if [ -n "$HOST" ] || [ -n "$USERNAME" ] || [ -n "$REMOTE_PATH" ]; then
-    info "已更新配置字段"
+    info "$MSG_CONFIG_FIELDS_UPDATED"
 fi
 
-# 自动绑定私钥
+# Auto-bind private key
 KEYBIND_SCRIPT="$SCRIPT_DIR/sftp-keybind.sh"
 if [ -f "$KEYBIND_SCRIPT" ]; then
     bash "$KEYBIND_SCRIPT" || true
 fi
 
-# 检查配置完整性
+# Check config integrity
 MISSING_FIELDS=()
 [ -z "$(json_get "$CONFIG_FILE" "host")" ]        && MISSING_FIELDS+=("host")
-[ -z "$(json_get "$CONFIG_FILE" "username")" ]     && MISSING_FIELDS+=("username")
-[ -z "$(json_get "$CONFIG_FILE" "remote_path")" ]  && MISSING_FIELDS+=("remote_path")
+[ -z "$(json_get "$CONFIG_FILE" "username")" ]    && MISSING_FIELDS+=("username")
+[ -z "$(json_get "$CONFIG_FILE" "remote_path")" ] && MISSING_FIELDS+=("remote_path")
 
 if [ ${#MISSING_FIELDS[@]} -gt 0 ]; then
-    warn "以下字段尚未配置: ${MISSING_FIELDS[*]}"
-    warn "请编辑 $CONFIG_FILE 补充配置"
+    warn "$(printf "$MSG_MISSING_FIELDS" "${MISSING_FIELDS[*]}")"
+    warn "$(printf "$MSG_EDIT_CONFIG" "$CONFIG_FILE")"
 fi
 
-info "初始化完成！"
+info "$MSG_INIT_COMPLETE"
 echo ""
-echo "下一步："
-echo "  1. 编辑 $CONFIG_FILE 填写服务器信息"
-echo "  2. 将私钥文件放入 $SFTP_CC_DIR/"
-echo "  3. 告诉 Claude: \"把代码上传到服务器\""
+info "$MSG_NEXT_STEPS"
+echo "  1. $(printf "$MSG_STEP_EDIT_CONFIG" "$CONFIG_FILE")"
+echo "  2. $(printf "$MSG_STEP_PLACE_KEY" "$SFTP_CC_DIR/")"
+echo "  3. $MSG_STEP_TELL_CLAUDE"
