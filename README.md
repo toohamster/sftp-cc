@@ -10,28 +10,7 @@ A universal SFTP upload tool for Claude Code. Supports incremental upload, autom
 
 This tool supports **English**, **Chinese (中文)**, and **Japanese (日本語)**.
 
-### Setting Language
-
-**Option 1: During installation**
-```bash
-# English (default)
-bash install.sh --language en /path/to/project
-
-# Chinese
-bash install.sh --language zh /path/to/project
-
-# Japanese
-bash install.sh --language ja /path/to/project
-```
-
-**Option 2: Edit config file**
-
-Edit `.claude/sftp-cc/sftp-config.json`:
-```json
-{
-  "language": "en"  // or "zh" or "ja"
-}
-```
+Language can be set during interactive initialization, or by editing the config file.
 
 ## Why
 
@@ -63,18 +42,46 @@ bash sftp-cc-toomaster/install.sh /path/to/your-project
 
 ### Step 1: Initialize server config
 
+**Option A: Interactive mode (Recommended)**
+
+Run without arguments to enter interactive mode:
+
 ```bash
-# After Plugin Marketplace installation
+# Plugin installation
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh
+
+# Manual installation
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh
+```
+
+The script will prompt you for:
+- SFTP server address
+- SFTP port (default: 22)
+- Login username
+- Remote target path
+- Language (English / 中文 / 日本語)
+- SSH private key path (optional, e.g., `~/.ssh/id_rsa`)
+
+If the private key file exists, it will be copied to `.claude/sftp-cc/` automatically.
+
+**Option B: Command-line arguments**
+
+```bash
+# Plugin installation
 bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh \
   --host your-server.com \
   --username deploy \
-  --remote-path /var/www/html
+  --remote-path /var/www/html \
+  --language ja \
+  --private-key ~/.ssh/id_rsa
 
-# After manual installation
+# Manual installation
 bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
   --host your-server.com \
   --username deploy \
-  --remote-path /var/www/html
+  --remote-path /var/www/html \
+  --language ja \
+  --private-key ~/.ssh/id_rsa
 ```
 
 ### Step 2: Deploy SSH public key to server

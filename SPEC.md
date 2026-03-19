@@ -173,11 +173,20 @@ bash install.sh [TARGET_PROJECT_PATH] [OPTIONS]
 
 ### sftp-init.sh
 
-**用途**：初始化 SFTP 配置。
+**用途**：初始化 SFTP 配置。支持交互式模式和命令行参数。
 
 ```
 bash sftp-init.sh [OPTIONS]
 ```
+
+**运行模式**：
+
+| 模式 | 触发条件 | 说明 |
+|------|----------|------|
+| 交互式模式 | 无参数 | 逐项询问用户输入（推荐） |
+| 命令行模式 | 提供任一参数 | 使用命令行参数配置 |
+
+**选项**：
 
 | 选项 | 说明 |
 |------|------|
@@ -185,13 +194,28 @@ bash sftp-init.sh [OPTIONS]
 | `--port PORT` | SFTP 端口（默认 22） |
 | `--username USER` | 登录用户名 |
 | `--remote-path PATH` | 远程目标路径 |
+| `--language LANG` | 设置语言：`en`（英语）/ `zh`（中文）/ `ja`（日语） |
+| `--private-key PATH` | SSH 私钥路径（如果文件存在，自动复制到 `.claude/sftp-cc/`） |
 | `-h, --help` | 显示帮助 |
+
+**交互式模式询问内容**：
+1. SFTP 服务器地址（必填）
+2. SFTP 端口（默认 22）
+3. 登录用户名（必填）
+4. 远程目标路径（必填）
+5. 语言选择：1) English  2) 中文  3) 日本語
+6. SSH 私钥路径（可选，例如 `~/.ssh/id_rsa`）
+
+**私钥处理逻辑**：
+- 如果提供了 `--private-key` 且文件存在 → 自动复制到 `.claude/sftp-cc/` 目录，设置权限 600，并写入配置
+- 如果提供了 `--private-key` 但文件不存在 → 警告提示，跳过复制
+- 如果未提供私钥 → 调用 `sftp-keybind.sh` 自动扫描绑定
 
 **行为**：
 1. 创建 `.claude/sftp-cc/` 目录
 2. 从模板创建 `sftp-config.json`（不覆盖已有）
-3. 将命令行参数写入配置对应字段
-4. 自动调用 `sftp-keybind.sh` 绑定私钥
+3. 将用户输入写入配置对应字段
+4. 处理私钥（复制或扫描绑定）
 5. 检查并报告缺失的必填字段（host, username, remote_path）
 
 ---

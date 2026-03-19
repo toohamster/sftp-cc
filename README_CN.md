@@ -8,28 +8,7 @@
 
 本工具支持 **英文（English）**、**中文** 和 **日文（日本語）**。
 
-### 设置语言
-
-**方式一：安装时指定**
-```bash
-# 英文（默认）
-bash install.sh --language en /path/to/project
-
-# 中文
-bash install.sh --language zh /path/to/project
-
-# 日文
-bash install.sh --language ja /path/to/project
-```
-
-**方式二：编辑配置文件**
-
-编辑 `.claude/sftp-cc/sftp-config.json`：
-```json
-{
-  "language": "en"  // 或 "zh" 或 "ja"
-}
-```
+语言设置可在交互式初始化时完成，或编辑配置文件修改。
 
 ## 为什么做这个工具
 
@@ -74,18 +53,46 @@ your-project/
 
 ### 第一步：初始化服务器配置
 
+**方式 A：交互式模式（推荐）**
+
+无参数运行，进入交互式配置：
+
 ```bash
-# Plugin Marketplace 安装后
+# Plugin 安装后
+bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh
+
+# 手动安装后
+bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh
+```
+
+脚本会依次询问：
+- SFTP 服务器地址
+- SFTP 端口（默认：22）
+- 登录用户名
+- 远程目标路径
+- 语言选择（English / 中文 / 日本語）
+- SSH 私钥路径（可选，例如 `~/.ssh/id_rsa`）
+
+如果私钥文件存在，会自动复制到 `.claude/sftp-cc/` 目录。
+
+**方式 B：命令行参数**
+
+```bash
+# Plugin 安装后
 bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh \
   --host your-server.com \
   --username deploy \
-  --remote-path /var/www/html
+  --remote-path /var/www/html \
+  --language ja \
+  --private-key ~/.ssh/id_rsa
 
 # 手动安装后
 bash .claude/skills/sftp-cc-toomaster/scripts/sftp-init.sh \
   --host your-server.com \
   --username deploy \
-  --remote-path /var/www/html
+  --remote-path /var/www/html \
+  --language ja \
+  --private-key ~/.ssh/id_rsa
 ```
 
 ### 第二步：部署 SSH 公钥到服务器
