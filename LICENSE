@@ -1,4 +1,14 @@
-MIT License
+# LICENSE
+
+This repository contains two main parts:
+1. **sftp-cc Project** (code, scripts, plugins)
+2. **Skill Development Book** (documentation in myskillNotes/)
+
+---
+
+## Part 1: sftp-cc Project
+
+### MIT License
 
 Copyright (c) 2026 toohamster
 
@@ -19,3 +29,53 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+## Part 2: Skill Development Book (myskillNotes/)
+
+### Electronic Version (GitHub Repository)
+
+**First Edition (Digital), March 2026**
+
+Copyright (c) 2026 toohamster
+
+The electronic version of this book (Markdown source code in myskillNotes/)
+is licensed under the **MIT License** (same as above).
+
+- ✅ Free to read, copy, modify
+- ✅ Personal learning and use
+- ✅ Share on GitHub and other platforms
+
+### Print / Commercial Version
+
+**© 2026 toohamster. All Rights Reserved.**
+
+The print version and commercial electronic editions of this book (including
+calibrated PDF, EPUB, print books) are protected by copyright law.
+
+No part of this book may be reproduced or transmitted in any form or by any
+means without the written permission of the publisher.
+
+---
+
+## Version Comparison
+
+| 版本类型 / Version Type | 授权方式 / License | 用途 / Use |
+|------------------------|-------------------|-----------|
+| GitHub 仓库 Markdown | MIT License | 免费传播、社区贡献 |
+| Leanpub/Gumroad 电子版 | 保留权利 | 付费下载 |
+| 纸质书（Amazon/出版社） | 保留权利 | 商业销售 |
+| 精校 PDF/EPUB | 保留权利 | 付费或赠品 |
+
+---
+
+## Legal Notes
+
+1. **MIT License is Irrevocable** — Once published under MIT, this version remains free forever.
+2. **New Versions May Have Different Licenses** — Subsequent revisions may use different licenses.
+3. **Clear Declaration** — License differences are clearly stated in each book's copyright page.
+
+---
+
+© 2026 toohamster
