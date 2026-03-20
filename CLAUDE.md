@@ -61,9 +61,7 @@ bash scripts/sftp-push.sh -n
 
 ### 发布 GitHub Release
 
-**使用 GitHub HTTP API，不使用 gh 命令：**
-
-当用户说 "提交打标签和发布" 时，自动执行以下流程（无需用户确认）：
+**当用户说 "提交打标签和发布" 时，自动执行以下完整流程（无需确认）：**
 
 ```bash
 # 1. 提交所有更改
@@ -72,27 +70,31 @@ git commit -m "feat: description
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
 
-# 2. 推送并创建 tag
+# 2. 推送代码
 git push origin main
-git tag v1.0.x
-git push origin v1.0.x
 
-# 3. 从 git remote URL 获取 token
-GITHUB_TOKEN=$(git remote get-url origin | sed -n 's/https:\/\/[^:]*:\([^@]*\)@.*/\1/p')
+# 3. 创建并推送 tag（自动递增版本号）
+LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v2.0.0")
+# 从 v2.1.0 → v2.2.0 (minor 版本 +1)
+NEW_TAG=$(echo "$LAST_TAG" | awk -F. '{print $1"."$2"."$3+1}')
+git tag "$NEW_TAG"
+git push origin "$NEW_TAG"
 
-# 4. 获取最新 commit hash
+# 4. 从 git credential 获取 GitHub Token
+GITHUB_TOKEN=$(echo "url=https://github.com" | git credential fill | grep password | cut -d= -f2)
+
+# 5. 获取最新 commit hash
 COMMIT_HASH=$(git rev-parse HEAD)
 
-# 5. 使用 curl 创建 release
-# 注意：JSON body 中避免使用反引号 `，会被 bash 解析为命令替换
-# 如需代码块，用文字描述或省略 markdown 代码块标记
+# 6. 使用 curl 创建 GitHub Release（JSON body 避免使用反引号）
 curl -s -X POST \
   -H "Authorization: Bearer $GITHUB_TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/toohamster/sftp-cc/releases \
-  -d "{\"tag_name\":\"v1.0.x\",\"name\":\"v1.0.x - Title\",\"body\":\"Release notes here\",\"target_commitish\":\"$COMMIT_HASH\"}"
+  -d "{\"tag_name\":\"$NEW_TAG\",\"target_commitish\":\"$COMMIT_HASH\",\"name\":\"$NEW_TAG - Release\",\"body\":\"Release $NEW_TAG\",\"draft\":false,\"prerelease\":false}"
 ```
 
-**常见错误：**
-- ❌ JSON body 中使用反引号 `` `command` `` — bash 会尝试执行其中的命令
-- ✅ 解决方法：使用纯文本、临时文件、或转义为 \`
+**注意：**
+- JSON body 中禁止使用反引号 `` ` `` — 会被 bash 解析为命令替换
+- 使用 `git credential fill` 获取 token，而不是从 remote URL 提取
+- 版本号自动递增：从上一个 tag 的 minor 版本 +1
