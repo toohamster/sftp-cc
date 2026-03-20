@@ -103,3 +103,13 @@ curl -s -X POST \
 - 使用 `git credential fill` 获取 token
 - 版本号自动递增：从上一个 tag 的 minor 版本 +1
 - 全部使用 HTTP API，无需 `git tag` 和 `git push tag`
+
+### 提交流程
+
+**修改完成后，必须先等待用户 review 确认，再执行提交和发布：**
+
+1. 完成修改后 → 展示更改内容（`git diff` 或文件对比）
+2. 等待用户回复确认 → 再执行 `git commit`、`git push`、打标签、发布
+3. 不要擅自提交
+
+**例外**：只有当用户明确说 "提交打标签和发布" 时，才自动执行完整发布流程。
