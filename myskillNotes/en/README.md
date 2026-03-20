@@ -54,6 +54,22 @@ For more details, see [About Author](authors.md)
 
 ## License
 
-This book is licensed under the **MIT License**.
+### Electronic Version (GitHub Repository)
+**First Edition (Digital), March 2026**
 
-See [LICENSE](../LICENSE) for details.
+Released under the [MIT License](../LICENSE).
+
+- ✅ Free to read, copy, modify
+- ✅ Personal learning and use
+- ✅ Share on GitHub and other platforms
+
+### Print / Commercial Version
+© 2026 toohamster. All Rights Reserved.
+
+The print version and commercial electronic editions (including calibrated PDF,
+EPUB, print books) are protected by copyright law. No part may be reproduced
+or transmitted without written permission from the publisher.
+
+---
+
+© 2026 toohamster

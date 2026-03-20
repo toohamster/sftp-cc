@@ -53,10 +53,30 @@ This book guides you through the complete process of developing a Claude Code Sk
 
 ## License / 授权 / ライセンス
 
-**MIT License**
+### Electronic Version (GitHub Repository)
+**First Edition (Digital), March 2026**
 
-This book is licensed under the MIT License.
-本书采用 MIT License 授权。
-本書は MIT License の下で公開されています。
+Released under the [MIT License](LICENSE).
 
-See [LICENSE](LICENSE) for details.
+- ✅ Free to read, copy, modify
+- ✅ Personal learning and use
+- ✅ Share on GitHub and other platforms
+
+### Print / Commercial Version
+© 2026 toohamster. All Rights Reserved.
+
+The print version and commercial electronic editions (including calibrated PDF, EPUB, print books) are © All Rights Reserved.
+
+---
+
+电子版（GitHub 仓库）根据 MIT License 授权。
+纸制版及商业电子版保留所有权利。
+
+---
+
+電子版（GitHub リポジトリ）は MIT License の下で公開されています。
+紙媒体版および商業版は著作権を保留します。
+
+---
+
+© 2026 toohamster

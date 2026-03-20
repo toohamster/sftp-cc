@@ -87,6 +87,21 @@ git clone https://github.com/toohamster/sftp-cc.git
 
 ## 授权协议
 
-本书采用 **MIT License** 授权。
+### 电子版（GitHub 仓库）
+**第一版（数字版）, 2026 年 3 月**
 
-详见 [LICENSE](../LICENSE) 文件。
+根据 [MIT License](../LICENSE) 授权。
+
+- ✅ 免费阅读、复制、修改
+- ✅ 个人学习使用
+- ✅ 在 GitHub 等平台分享
+
+### 纸制版/商业版
+© 2026 toohamster. All Rights Reserved.
+
+本图书的纸质版及商业电子版受版权法保护。未经出版者书面许可，
+不得以任何形式复制或传播本书的任何部分。
+
+---
+
+© 2026 toohamster
