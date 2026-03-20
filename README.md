@@ -204,6 +204,53 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh -n
 - `.claude/sftp-cc/` directory contains private keys and server info, automatically added to `.gitignore`
 - Private key permissions are auto-corrected to `600`
 
+## Troubleshooting & Notes
+
+### Common Issues
+
+**1. "绑定私钥" command not working after Plugin installation**
+
+If you installed via Plugin Marketplace and telling Claude "绑定 SFTP 私钥" doesn't work:
+
+```
+# Reinstall the Plugin to load the latest SKILL.md
+/plugin marketplace remove sftp-cc
+/plugin marketplace add https://github.com/toohamster/sftp-cc
+```
+
+This ensures Claude Code recognizes the trigger keywords for private key binding.
+
+**2. Permission denied for private key**
+
+The script automatically runs `chmod 600` on the private key. If you still get errors:
+```bash
+chmod 600 .claude/sftp-cc/id_ed25519
+```
+
+**3. SFTP authentication failed after deploying public key**
+
+Make sure you ran `sftp-copy-id.sh` **in your local terminal**, not inside Claude Code. The script requires interactive password input.
+
+**4. First upload uploads all files**
+
+This is expected behavior. Incremental upload only works after the first successful upload, which creates the `.last-push` marker file.
+
+**5. "push" keyword doesn't trigger upload**
+
+This is by design to avoid conflicts with `git push`. Use explicit phrases like "sync code to server" or "sftp upload".
+
+### Installation Notes
+
+- **Plugin installation (recommended)**: Scripts are located at `${CLAUDE_PLUGIN_ROOT}/scripts/`
+- **Manual installation**: Scripts are copied to `.claude/skills/sftp-cc/scripts/`
+- Both installation methods share the same config directory: `.claude/sftp-cc/`
+
+### Configuration Notes
+
+- The `.claude/sftp-cc/` directory should always be in `.gitignore` (contains sensitive data)
+- Language setting (`en`/`zh`/`ja`) is stored in `sftp-config.json`
+- The `private_key` field is auto-populated by `sftp-keybind.sh` — no need to edit manually
+
 ## License
 
 [MIT](LICENSE)

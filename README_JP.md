@@ -217,6 +217,49 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh -n
 - `.claude/sftp-cc/` ディレクトリには秘密鍵とサーバー情報が含まれ、自動的に `.gitignore` に追加されます
 - 秘密鍵の権限は自動的に `600` に修正されます
 
-## ライセンス
+## トラブルシューティングと注意事項
 
-[MIT](LICENSE)
+### よくある問題
+
+**1. Plugin インストール後「秘密鍵をバインドする」が機能しない**
+
+Plugin Marketplace からインストールした後、Claude に「绑定 SFTP 私钥（秘密鍵をバインドする）」と言っても反応がない場合：
+
+```
+# Plugin を再インストールして最新の SKILL.md を読み込む
+/plugin marketplace remove sftp-cc
+/plugin marketplace add https://github.com/toohamster/sftp-cc
+```
+
+これで Claude Code が秘密鍵バインドのトリガーキーワードを正しく認識します。
+
+**2. 秘密鍵の権限が拒否される**
+
+スクリプトは自動的に `chmod 600` を実行して権限を修正します。それでもエラーが出る場合：
+```bash
+chmod 600 .claude/sftp-cc/id_ed25519
+```
+
+**3. 公開鍵をデプロイしても SFTP 認証が失敗する**
+
+`sftp-copy-id.sh` は **Claude Code 内部ではなく、ローカルターミナルで** 実行してください。このスクリプトは対話的なパスワード入力が必要です。
+
+**4. 初回アップロードですべてのファイルがアップロードされる**
+
+これは正常な動作です。増分アップロードは、初回の成功したアップロード後に `.last-push` マーカーファイルが作成されてから有効になります。
+
+**5. 「push」と言ってもアップロードがトリガーされない**
+
+これは `git push` との競合を避けるための設計です。「sync code to server」や「sftp upload」などの明確な表現を使用してください。
+
+### インストールの注意事項
+
+- **Plugin インストール（推奨）**：スクリプトの場所 `${CLAUDE_PLUGIN_ROOT}/scripts/`
+- **手動インストール**：スクリプトは `.claude/skills/sftp-cc/scripts/` にコピーされます
+- 両方のインストール方式で共通の設定ディレクトリ：`.claude/sftp-cc/`
+
+### 設定の注意事項
+
+- `.claude/sftp-cc/` ディレクトリは常に `.gitignore` に含めてください（機密情報が含まれます）
+- 言語設定（`en`/`zh`/`ja`）は `sftp-config.json` に保存されます
+- `private_key` フィールドは `sftp-keybind.sh` によって自動的に設定されます — 手動編集不要

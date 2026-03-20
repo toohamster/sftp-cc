@@ -211,3 +211,50 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh -n
 
 - `.claude/sftp-cc/` 目录包含私钥和服务器信息，已自动加入 `.gitignore`
 - 私钥权限会被自动修正为 `600`
+
+## 常见问题与注意事项
+
+### 常见问题
+
+**1. Plugin 安装后 "绑定私钥" 命令无效**
+
+如果你通过 Plugin Marketplace 安装后，对 Claude 说 "绑定 SFTP 私钥" 没有反应：
+
+```
+# 重新安装 Plugin 以加载最新的 SKILL.md
+/plugin marketplace remove sftp-cc
+/plugin marketplace add https://github.com/toohamster/sftp-cc
+```
+
+这样可以确保 Claude Code 正确识别私钥绑定的触发词。
+
+**2. 私钥权限被拒绝**
+
+脚本会自动运行 `chmod 600` 修正私钥权限。如果仍有错误：
+```bash
+chmod 600 .claude/sftp-cc/id_ed25519
+```
+
+**3. 部署公钥后 SFTP 认证仍失败**
+
+请确保你是**在本地终端**运行 `sftp-copy-id.sh`，而不是在 Claude Code 内部。该脚本需要交互式输入服务器密码。
+
+**4. 首次上传会上传全部文件**
+
+这是正常行为。增量上传仅在首次成功上传并创建 `.last-push` 标记文件后生效。
+
+**5. 说 "push" 不触发上传**
+
+这是为了避免与 `git push` 冲突。请使用明确的说法如 "同步代码到服务器" 或 "sftp 上传"。
+
+### 安装注意事项
+
+- **Plugin 安装（推荐）**：脚本位于 `${CLAUDE_PLUGIN_ROOT}/scripts/`
+- **手动安装**：脚本被复制到 `.claude/skills/sftp-cc/scripts/`
+- 两种安装方式共用同一个配置目录：`.claude/sftp-cc/`
+
+### 配置注意事项
+
+- `.claude/sftp-cc/` 目录应始终在 `.gitignore` 中（包含敏感信息）
+- 语言设置（`en`/`zh`/`ja`）存储在 `sftp-config.json` 中
+- `private_key` 字段由 `sftp-keybind.sh` 自动填充，无需手动编辑
