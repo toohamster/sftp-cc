@@ -74,15 +74,20 @@ jobs:
       - name: Combine all English chapters into one book
         run: |
           echo "Combining English book..."
-          # Create combined markdown
-          cat myskillNotes/en/README.md myskillNotes/en/authors.md myskillNotes/en/chapter-*.md > pdfs/en-book-combined.md
+          # Create combined markdown with separator between authors and chapters
+          {
+            cat myskillNotes/en/README.md myskillNotes/en/authors.md
+            echo ""
+            echo "---"
+            echo ""
+            cat myskillNotes/en/chapter-*.md
+          } > pdfs/en-book-combined.md
           pandoc pdfs/en-book-combined.md \
             -o "pdfs/sftp-cc-book-en.pdf" \
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
             -V mainfont="Noto Serif CJK SC" \
-            -V titlepage \
             -V title="sftp-cc: Claude Code Skill Development Book" \
             -V author="toohamster"
           rm pdfs/en-book-combined.md
@@ -90,14 +95,20 @@ jobs:
       - name: Combine all Chinese chapters into one book
         run: |
           echo "Combining Chinese book..."
-          cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md myskillNotes/zh-cn/chapter-*.md > pdfs/zh-cn-book-combined.md
+          # Create combined markdown with separator between authors and chapters
+          {
+            cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md
+            echo ""
+            echo "---"
+            echo ""
+            cat myskillNotes/zh-cn/chapter-*.md
+          } > pdfs/zh-cn-book-combined.md
           pandoc pdfs/zh-cn-book-combined.md \
             -o "pdfs/sftp-cc-book-zh-cn.pdf" \
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
             -V mainfont="Noto Serif CJK SC" \
-            -V titlepage \
             -V title="sftp-cc: Claude Code Skill 开发教程" \
             -V author="toohamster"
           rm pdfs/zh-cn-book-combined.md
@@ -105,14 +116,20 @@ jobs:
       - name: Combine all Japanese chapters into one book
         run: |
           echo "Combining Japanese book..."
-          cat myskillNotes/ja/README.md myskillNotes/ja/authors.md myskillNotes/ja/chapter-*.md > pdfs/ja-book-combined.md
+          # Create combined markdown with separator between authors and chapters
+          {
+            cat myskillNotes/ja/README.md myskillNotes/ja/authors.md
+            echo ""
+            echo "---"
+            echo ""
+            cat myskillNotes/ja/chapter-*.md
+          } > pdfs/ja-book-combined.md
           pandoc pdfs/ja-book-combined.md \
             -o "pdfs/sftp-cc-book-ja.pdf" \
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
             -V mainfont="Noto Serif CJK SC" \
-            -V titlepage \
             -V title="sftp-cc: Claude Code Skill 開発ガイド" \
             -V author="toohamster"
           rm pdfs/ja-book-combined.md
