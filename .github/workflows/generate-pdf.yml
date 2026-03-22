@@ -82,54 +82,68 @@ jobs:
       - name: Combine all English chapters into one book
         run: |
           echo "Combining English book..."
-          # Create combined markdown (README + authors + chapters)
-          cat myskillNotes/en/README.md myskillNotes/en/authors.md myskillNotes/en/chapter-*.md > pdfs/en-book-combined.md
+          # Create combined markdown with proper YAML frontmatter
+          cat > pdfs/en-book-combined.md << 'FRONTMATTER'
+          ---
+          title: "sftp-cc: Claude Code Skill Development Book"
+          author: "toohamster"
+          documentclass: report
+          geometry: margin=1in
+          CJKmainfont: "Noto Serif CJK SC"
+          CJKmonofont: "Noto Sans Mono CJK SC"
+          mainfont: "DejaVu Serif"
+          monofont: "DejaVu Sans Mono"
+          ---
+          FRONTMATTER
+          cat myskillNotes/en/README.md myskillNotes/en/authors.md myskillNotes/en/chapter-*.md >> pdfs/en-book-combined.md
           pandoc pdfs/en-book-combined.md \
             -o "pdfs/sftp-cc-book-en.pdf" \
             --pdf-engine=xelatex \
-            -V documentclass=report \
-            -V geometry:margin=1in \
-            -V CJKmainfont="Noto Serif CJK SC" \
-            -V CJKmonofont="Noto Sans Mono CJK SC" \
-            -V mainfont="DejaVu Serif" \
-            -V monofont="DejaVu Sans Mono" \
-            -V titlepage \
-            -V title="sftp-cc: Claude Code Skill Development Book" \
-            -V author="toohamster"
+            -V titlepage
           rm pdfs/en-book-combined.md
 
       - name: Combine all Chinese chapters into one book
         run: |
           echo "Combining Chinese book..."
-          cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md myskillNotes/zh-cn/chapter-*.md > pdfs/zh-cn-book-combined.md
+          # Create combined markdown with proper YAML frontmatter
+          cat > pdfs/zh-cn-book-combined.md << 'FRONTMATTER'
+          ---
+          title: "sftp-cc: Claude Code Skill 开发教程"
+          author: "toohamster"
+          documentclass: report
+          geometry: margin=1in
+          mainfont: "Noto Serif CJK SC"
+          monofont: "Noto Sans Mono CJK SC"
+          ---
+          FRONTMATTER
+          cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md myskillNotes/zh-cn/chapter-*.md >> pdfs/zh-cn-book-combined.md
           pandoc pdfs/zh-cn-book-combined.md \
             -o "pdfs/sftp-cc-book-zh-cn.pdf" \
             --pdf-engine=xelatex \
-            -V documentclass=report \
-            -V geometry:margin=1in \
-            -V mainfont="Noto Serif CJK SC" \
-            -V monofont="Noto Sans Mono CJK SC" \
-            -V titlepage \
-            -V title="sftp-cc: Claude Code Skill 开发教程" \
-            -V author="toohamster"
+            -V titlepage
           rm pdfs/zh-cn-book-combined.md
 
       - name: Combine all Japanese chapters into one book
         run: |
           echo "Combining Japanese book..."
-          cat myskillNotes/ja/README.md myskillNotes/ja/authors.md myskillNotes/ja/chapter-*.md > pdfs/ja-book-combined.md
+          # Create combined markdown with proper YAML frontmatter
+          cat > pdfs/ja-book-combined.md << 'FRONTMATTER'
+          ---
+          title: "sftp-cc: Claude Code Skill 開発ガイド"
+          author: "toohamster"
+          documentclass: report
+          geometry: margin=1in
+          CJKmainfont: "Noto Serif CJK JP"
+          CJKmonofont: "Noto Sans Mono CJK JP"
+          mainfont: "DejaVu Serif"
+          monofont: "DejaVu Sans Mono"
+          ---
+          FRONTMATTER
+          cat myskillNotes/ja/README.md myskillNotes/ja/authors.md myskillNotes/ja/chapter-*.md >> pdfs/ja-book-combined.md
           pandoc pdfs/ja-book-combined.md \
             -o "pdfs/sftp-cc-book-ja.pdf" \
             --pdf-engine=xelatex \
-            -V documentclass=report \
-            -V geometry:margin=1in \
-            -V CJKmainfont="Noto Serif CJK JP" \
-            -V CJKmonofont="Noto Sans Mono CJK JP" \
-            -V mainfont="DejaVu Serif" \
-            -V monofont="DejaVu Sans Mono" \
-            -V titlepage \
-            -V title="sftp-cc: Claude Code Skill 開発ガイド" \
-            -V author="toohamster"
+            -V titlepage
           rm pdfs/ja-book-combined.md
 
       - name: List generated PDFs
