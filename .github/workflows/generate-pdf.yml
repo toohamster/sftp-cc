@@ -40,7 +40,8 @@ jobs:
               --pdf-engine=xelatex \
               -V documentclass=report \
               -V geometry:margin=1in \
-              -V mainfont="Noto Serif CJK SC"
+              -V mainfont="Noto Serif CJK SC" \
+              -V monofont="Noto Sans Mono CJK SC"
           done
 
       - name: Generate PDF for Japanese chapters
@@ -54,7 +55,8 @@ jobs:
               --pdf-engine=xelatex \
               -V documentclass=report \
               -V geometry:margin=1in \
-              -V mainfont="Noto Serif CJK SC"
+              -V mainfont="Noto Serif CJK JP" \
+              -V monofont="Noto Sans Mono CJK JP"
           done
 
       - name: Generate PDF for Chinese chapters
@@ -68,7 +70,8 @@ jobs:
               --pdf-engine=xelatex \
               -V documentclass=report \
               -V geometry:margin=1in \
-              -V mainfont="Noto Serif CJK SC"
+              -V mainfont="Noto Serif CJK SC" \
+              -V monofont="Noto Sans Mono CJK SC"
           done
 
       - name: Combine all English chapters into one book
@@ -88,6 +91,7 @@ jobs:
             -V documentclass=report \
             -V geometry:margin=1in \
             -V mainfont="Noto Serif CJK SC" \
+            -V monofont="Noto Sans Mono CJK SC" \
             --metadata title="sftp-cc: Claude Code Skill Development Book" \
             --metadata author="toohamster"
           rm pdfs/en-book-combined.md
@@ -109,6 +113,7 @@ jobs:
             -V documentclass=report \
             -V geometry:margin=1in \
             -V mainfont="Noto Serif CJK SC" \
+            -V monofont="Noto Sans Mono CJK SC" \
             --metadata title="sftp-cc: Claude Code Skill 开发教程" \
             --metadata author="toohamster"
           rm pdfs/zh-cn-book-combined.md
@@ -129,7 +134,8 @@ jobs:
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
-            -V mainfont="Noto Serif CJK SC" \
+            -V mainfont="Noto Serif CJK JP" \
+            -V monofont="Noto Sans Mono CJK JP" \
             --metadata title="sftp-cc: Claude Code Skill 開発ガイド" \
             --metadata author="toohamster"
           rm pdfs/ja-book-combined.md
