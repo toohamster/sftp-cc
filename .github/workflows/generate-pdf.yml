@@ -3,7 +3,9 @@ name: Generate PDF from Markdown
 on:
   push:
     branches: [write-skill-book]
-    paths: ['myskillNotes/**/*.md']
+    paths:
+      - 'myskillNotes/**/*.md'
+      - '.github/workflows/generate-pdf.yml'
 
 jobs:
   build-pdf:
