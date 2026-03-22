@@ -220,7 +220,7 @@ Organize trigger words by functionality:
 
 **Category 3: Key Management**
 - Related trigger words...
-```
+````
 
 ### 3.3.3 Semantic Expansion Techniques
 

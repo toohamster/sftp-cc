@@ -75,7 +75,7 @@ jobs:
         run: |
           echo "Combining English book..."
           # Create combined markdown
-          cat myskillNotes/en/chapter-*.md > pdfs/en-book-combined.md
+          cat myskillNotes/en/README.md myskillNotes/en/authors.md myskillNotes/en/chapter-*.md > pdfs/en-book-combined.md
           pandoc pdfs/en-book-combined.md \
             -o "pdfs/sftp-cc-book-en.pdf" \
             --pdf-engine=xelatex \
@@ -90,7 +90,7 @@ jobs:
       - name: Combine all Chinese chapters into one book
         run: |
           echo "Combining Chinese book..."
-          cat myskillNotes/zh-cn/chapter-*.md > pdfs/zh-cn-book-combined.md
+          cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md myskillNotes/zh-cn/chapter-*.md > pdfs/zh-cn-book-combined.md
           pandoc pdfs/zh-cn-book-combined.md \
             -o "pdfs/sftp-cc-book-zh-cn.pdf" \
             --pdf-engine=xelatex \
@@ -105,7 +105,7 @@ jobs:
       - name: Combine all Japanese chapters into one book
         run: |
           echo "Combining Japanese book..."
-          cat myskillNotes/ja/chapter-*.md > pdfs/ja-book-combined.md
+          cat myskillNotes/ja/README.md myskillNotes/ja/authors.md myskillNotes/ja/chapter-*.md > pdfs/ja-book-combined.md
           pandoc pdfs/ja-book-combined.md \
             -o "pdfs/sftp-cc-book-ja.pdf" \
             --pdf-engine=xelatex \
