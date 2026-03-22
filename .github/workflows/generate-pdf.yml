@@ -25,9 +25,6 @@ jobs:
             texlive-lang-chinese \
             texlive-lang-japanese \
             fonts-noto-cjk \
-            fonts-noto-serif-cjk \
-            fonts-noto-sans-cjk \
-            fonts-noto-mono-cjk \
             fonts-dejavu
 
       - name: Create output directory
