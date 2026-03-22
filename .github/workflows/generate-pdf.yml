@@ -6,6 +6,7 @@ on:
     paths:
       - 'myskillNotes/**/*.md'
       - '.github/workflows/generate-pdf.yml'
+      - '.github/pdf-helpers/**/*.sh'
 
 jobs:
   build-pdf:
@@ -78,7 +79,7 @@ jobs:
         run: |
           echo "Combining English book..."
           # Preprocess markdown files for PDF generation
-          .github/pdf-helpers/pdf-preprocess.sh myskillNotes/en /tmp/pdf-preprocess/en
+          bash .github/pdf-helpers/pdf-preprocess.sh myskillNotes/en /tmp/pdf-preprocess/en
           # Combine files, remove internal --- but keep separator before chapters
           {
             cat /tmp/pdf-preprocess/en/README.md /tmp/pdf-preprocess/en/authors.md | sed '/^---$/d'
@@ -102,7 +103,7 @@ jobs:
         run: |
           echo "Combining Chinese book..."
           # Preprocess markdown files for PDF generation
-          .github/pdf-helpers/pdf-preprocess.sh myskillNotes/zh-cn /tmp/pdf-preprocess/zh-cn
+          bash .github/pdf-helpers/pdf-preprocess.sh myskillNotes/zh-cn /tmp/pdf-preprocess/zh-cn
           # Combine files, remove internal --- but keep separator before chapters
           {
             cat /tmp/pdf-preprocess/zh-cn/README.md /tmp/pdf-preprocess/zh-cn/authors.md | sed '/^---$/d'
@@ -126,7 +127,7 @@ jobs:
         run: |
           echo "Combining Japanese book..."
           # Preprocess markdown files for PDF generation
-          .github/pdf-helpers/pdf-preprocess.sh myskillNotes/ja /tmp/pdf-preprocess/ja
+          bash .github/pdf-helpers/pdf-preprocess.sh myskillNotes/ja /tmp/pdf-preprocess/ja
           # Combine files, remove internal --- but keep separator before chapters
           {
             cat /tmp/pdf-preprocess/ja/README.md /tmp/pdf-preprocess/ja/authors.md | sed '/^---$/d'
