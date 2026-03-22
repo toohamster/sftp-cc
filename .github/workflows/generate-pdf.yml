@@ -83,18 +83,16 @@ jobs:
         run: |
           echo "Combining English book..."
           # Create combined markdown with proper YAML frontmatter
-          cat > pdfs/en-book-combined.md << 'FRONTMATTER'
-          ---
-          title: "sftp-cc: Claude Code Skill Development Book"
-          author: "toohamster"
-          documentclass: report
-          geometry: margin=1in
-          CJKmainfont: "Noto Serif CJK SC"
-          CJKmonofont: "Noto Sans Mono CJK SC"
-          mainfont: "DejaVu Serif"
-          monofont: "DejaVu Sans Mono"
-          ---
-          FRONTMATTER
+          printf '%s\n' '---' \
+            'title: "sftp-cc: Claude Code Skill Development Book"' \
+            'author: "toohamster"' \
+            'documentclass: report' \
+            'geometry: margin=1in' \
+            'CJKmainfont: "Noto Serif CJK SC"' \
+            'CJKmonofont: "Noto Sans Mono CJK SC"' \
+            'mainfont: "DejaVu Serif"' \
+            'monofont: "DejaVu Sans Mono"' \
+            '---' '' > pdfs/en-book-combined.md
           cat myskillNotes/en/README.md myskillNotes/en/authors.md myskillNotes/en/chapter-*.md >> pdfs/en-book-combined.md
           pandoc pdfs/en-book-combined.md \
             -o "pdfs/sftp-cc-book-en.pdf" \
@@ -106,16 +104,14 @@ jobs:
         run: |
           echo "Combining Chinese book..."
           # Create combined markdown with proper YAML frontmatter
-          cat > pdfs/zh-cn-book-combined.md << 'FRONTMATTER'
-          ---
-          title: "sftp-cc: Claude Code Skill 开发教程"
-          author: "toohamster"
-          documentclass: report
-          geometry: margin=1in
-          mainfont: "Noto Serif CJK SC"
-          monofont: "Noto Sans Mono CJK SC"
-          ---
-          FRONTMATTER
+          printf '%s\n' '---' \
+            'title: "sftp-cc: Claude Code Skill 开发教程"' \
+            'author: "toohamster"' \
+            'documentclass: report' \
+            'geometry: margin=1in' \
+            'mainfont: "Noto Serif CJK SC"' \
+            'monofont: "Noto Sans Mono CJK SC"' \
+            '---' '' > pdfs/zh-cn-book-combined.md
           cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md myskillNotes/zh-cn/chapter-*.md >> pdfs/zh-cn-book-combined.md
           pandoc pdfs/zh-cn-book-combined.md \
             -o "pdfs/sftp-cc-book-zh-cn.pdf" \
@@ -127,18 +123,16 @@ jobs:
         run: |
           echo "Combining Japanese book..."
           # Create combined markdown with proper YAML frontmatter
-          cat > pdfs/ja-book-combined.md << 'FRONTMATTER'
-          ---
-          title: "sftp-cc: Claude Code Skill 開発ガイド"
-          author: "toohamster"
-          documentclass: report
-          geometry: margin=1in
-          CJKmainfont: "Noto Serif CJK JP"
-          CJKmonofont: "Noto Sans Mono CJK JP"
-          mainfont: "DejaVu Serif"
-          monofont: "DejaVu Sans Mono"
-          ---
-          FRONTMATTER
+          printf '%s\n' '---' \
+            'title: "sftp-cc: Claude Code Skill 開発ガイド"' \
+            'author: "toohamster"' \
+            'documentclass: report' \
+            'geometry: margin=1in' \
+            'CJKmainfont: "Noto Serif CJK JP"' \
+            'CJKmonofont: "Noto Sans Mono CJK JP"' \
+            'mainfont: "DejaVu Serif"' \
+            'monofont: "DejaVu Sans Mono"' \
+            '---' '' > pdfs/ja-book-combined.md
           cat myskillNotes/ja/README.md myskillNotes/ja/authors.md myskillNotes/ja/chapter-*.md >> pdfs/ja-book-combined.md
           pandoc pdfs/ja-book-combined.md \
             -o "pdfs/sftp-cc-book-ja.pdf" \
