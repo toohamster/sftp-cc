@@ -22,7 +22,11 @@ jobs:
             texlive-fonts-recommended \
             texlive-lang-chinese \
             texlive-lang-japanese \
-            fonts-noto-cjk
+            fonts-noto-cjk \
+            fonts-noto-serif-cjk \
+            fonts-noto-sans-cjk \
+            fonts-noto-mono-cjk \
+            fonts-dejavu
 
       - name: Create output directory
         run: mkdir -p pdfs
@@ -38,7 +42,10 @@ jobs:
               --pdf-engine=xelatex \
               -V documentclass=report \
               -V geometry:margin=1in \
-              -V mainfont="Noto Serif CJK SC"
+              -V CJKmainfont="Noto Serif CJK SC" \
+              -V CJKmonofont="Noto Sans Mono CJK SC" \
+              -V mainfont="DejaVu Serif" \
+              -V monofont="DejaVu Sans Mono"
           done
 
       - name: Generate PDF for Japanese chapters
@@ -52,7 +59,10 @@ jobs:
               --pdf-engine=xelatex \
               -V documentclass=report \
               -V geometry:margin=1in \
-              -V mainfont="Noto Serif CJK SC"
+              -V CJKmainfont="Noto Serif CJK JP" \
+              -V CJKmonofont="Noto Sans Mono CJK JP" \
+              -V mainfont="DejaVu Serif" \
+              -V monofont="DejaVu Sans Mono"
           done
 
       - name: Generate PDF for Chinese chapters
@@ -66,20 +76,24 @@ jobs:
               --pdf-engine=xelatex \
               -V documentclass=report \
               -V geometry:margin=1in \
-              -V mainfont="Noto Serif CJK SC"
+              -V mainfont="Noto Serif CJK SC" \
+              -V monofont="Noto Sans Mono CJK SC"
           done
 
       - name: Combine all English chapters into one book
         run: |
           echo "Combining English book..."
-          # Create combined markdown
-          cat myskillNotes/en/chapter-*.md > pdfs/en-book-combined.md
+          # Create combined markdown (README + authors + chapters)
+          cat myskillNotes/en/README.md myskillNotes/en/authors.md myskillNotes/en/chapter-*.md > pdfs/en-book-combined.md
           pandoc pdfs/en-book-combined.md \
             -o "pdfs/sftp-cc-book-en.pdf" \
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
-            -V mainfont="Noto Serif CJK SC" \
+            -V CJKmainfont="Noto Serif CJK SC" \
+            -V CJKmonofont="Noto Sans Mono CJK SC" \
+            -V mainfont="DejaVu Serif" \
+            -V monofont="DejaVu Sans Mono" \
             -V titlepage \
             -V title="sftp-cc: Claude Code Skill Development Book" \
             -V author="toohamster"
@@ -88,13 +102,14 @@ jobs:
       - name: Combine all Chinese chapters into one book
         run: |
           echo "Combining Chinese book..."
-          cat myskillNotes/zh-cn/chapter-*.md > pdfs/zh-cn-book-combined.md
+          cat myskillNotes/zh-cn/README.md myskillNotes/zh-cn/authors.md myskillNotes/zh-cn/chapter-*.md > pdfs/zh-cn-book-combined.md
           pandoc pdfs/zh-cn-book-combined.md \
             -o "pdfs/sftp-cc-book-zh-cn.pdf" \
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
             -V mainfont="Noto Serif CJK SC" \
+            -V monofont="Noto Sans Mono CJK SC" \
             -V titlepage \
             -V title="sftp-cc: Claude Code Skill 开发教程" \
             -V author="toohamster"
@@ -103,13 +118,16 @@ jobs:
       - name: Combine all Japanese chapters into one book
         run: |
           echo "Combining Japanese book..."
-          cat myskillNotes/ja/chapter-*.md > pdfs/ja-book-combined.md
+          cat myskillNotes/ja/README.md myskillNotes/ja/authors.md myskillNotes/ja/chapter-*.md > pdfs/ja-book-combined.md
           pandoc pdfs/ja-book-combined.md \
             -o "pdfs/sftp-cc-book-ja.pdf" \
             --pdf-engine=xelatex \
             -V documentclass=report \
             -V geometry:margin=1in \
-            -V mainfont="Noto Serif CJK SC" \
+            -V CJKmainfont="Noto Serif CJK JP" \
+            -V CJKmonofont="Noto Sans Mono CJK JP" \
+            -V mainfont="DejaVu Serif" \
+            -V monofont="DejaVu Sans Mono" \
             -V titlepage \
             -V title="sftp-cc: Claude Code Skill 開発ガイド" \
             -V author="toohamster"

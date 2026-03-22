@@ -1059,3 +1059,5 @@ By the end of Chapter 7, you'll be ready to share your Skill with the world!
 **Source**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 See [LICENSE](../../LICENSE) and [About Author](../authors.md) for details.
+
+---

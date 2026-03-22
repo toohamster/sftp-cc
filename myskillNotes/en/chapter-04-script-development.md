@@ -738,3 +738,5 @@ By the end of Chapter 5, your Skills will speak your users' language!
 **Source**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 See [LICENSE](../../LICENSE) and [About Author](../authors.md) for details.
+
+---

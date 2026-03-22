@@ -1154,3 +1154,5 @@ By the end of Chapter 8, you'll write production-ready Skills!
 **Source**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 See [LICENSE](../../LICENSE) and [About Author](../authors.md) for details.
+
+---

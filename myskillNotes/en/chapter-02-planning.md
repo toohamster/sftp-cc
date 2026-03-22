@@ -727,3 +727,5 @@ By the end of Chapter 3, you'll have your first working Skill!
 **Source**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 See [LICENSE](../../LICENSE) and [About Author](../authors.md) for details.
+
+---

@@ -849,3 +849,5 @@ By the end of Chapter 6, you'll debug and test your Skills like a pro!
 **Source**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 See [LICENSE](../../LICENSE) and [About Author](../authors.md) for details.
+
+---

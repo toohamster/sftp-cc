@@ -320,7 +320,7 @@ claude --version
 
 初めての Skill プロジェクトを作成しましょう：
 
-```bash
+````bash
 # プロジェクトディレクトリを作成
 mkdir my-first-skill
 cd my-first-skill
@@ -356,7 +356,7 @@ EOF
 # Skill をテスト
 claude
 # 次に：「こんにちは」と言う
-```
+````
 
 ### 1.4.3 Skill を初めて実行
 
@@ -492,3 +492,5 @@ curl wttr.in?format=3
 **ソース**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 詳細は [LICENSE](../../LICENSE) と [著者について](../authors.md) をご覧ください。
+
+---

@@ -320,7 +320,7 @@ claude --version
 
 Create your first Skill project:
 
-```bash
+````bash
 # Create project directory
 mkdir my-first-skill
 cd my-first-skill
@@ -356,7 +356,7 @@ EOF
 # Test your Skill
 claude
 # Then say: "hello"
-```
+````
 
 ### 1.4.3 Your First Running Skill
 
@@ -492,3 +492,5 @@ By the end of Chapter 2, you'll complete the full design document for sftp-cc pr
 **Source**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
 
 See [LICENSE](../../LICENSE) and [About Author](../authors.md) for details.
+
+---
