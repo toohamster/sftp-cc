@@ -3,13 +3,21 @@
 > 「デバッグは、コードを書くことの 2 倍の難しさがある。したがって、可能な限り賢くコードを書いた場合、それは自分をデバッグするのに十分賢くない」 — ブライアン・カーニハン
 
 この章では、次のことを学びます：
+
 - Shell スクリプトデバッグ基礎（`set` コマンドオプション）
+
 - ログレベル設計と実装
+
 - Verbose モードの詳細出力
+
 - 一時ファイル管理（`mktemp` + `trap`）
+
 - エラーハンドリングパターンと検証
+
 - テスト方法（ドライラン、ユニット、統合）
+
 - 実世界デバッグケーススタディ
+
 - 検証ツールの使用
 
 ---
@@ -148,9 +156,13 @@ echo "完了"
 ### 6.2.1 なぜロギングが重要か
 
 良いログは次のことに答えます：
+
 - 何が発生したか？
+
 - いつ発生したか？
+
 - コンテキストは何か？
+
 - 何が悪くなったか（何か問題があれば）？
 
 ### 6.2.2 4 レベルログシステム
@@ -921,14 +933,23 @@ sudo dtruss ./sftp-push.sh 2>&1 | head -100
 ### ベストプラクティスチェックリスト
 
 - [ ] 本番スクリプトで常に `set -euo pipefail` を使用
+
 - [ ] ログ関数を実装（info/warn/error/debug）
+
 - [ ] デバッグ用に verbose モードを追加（`-v` フラグ）
+
 - [ ] 一時ファイルに `mktemp` を使用、ハードコードパスは使用しない
+
 - [ ] 一時ファイル作成後に `trap cleanup EXIT` を登録
+
 - [ ] 続行前にすべての必須パラメータを検証
+
 - [ ] `command -v` で必要なコマンドをチェック
+
 - [ ] プレビュー用にドライランモードを追加（`-n` フラグ）
+
 - [ ] コミット前に ShellCheck を実行
+
 - [ ] 一貫した終了コードを使用
 
 ---
@@ -938,8 +959,11 @@ sudo dtruss ./sftp-push.sh 2>&1 | head -100
 ### 練習問題 6-1: デバッグモードを追加
 
 既存のスクリプトに verbose モードを追加：
+
 1. `-v` / `--verbose` 引数解析を追加
+
 2. verbose モードでのみ出力する `debug()` 関数を実装
+
 3. デバッグステートメントを追加：
    - 使用されている設定値
    - 処理中のファイル
@@ -956,19 +980,26 @@ sudo dtruss ./sftp-push.sh 2>&1 | head -100
 ### 練習問題 6-2: ユニットテストを作成
 
 JSON パース関数のテストファイルを作成：
+
 1. `tests/test-json-parser.sh` を作成
+
 2. テストケースを作成：
    - 既存キーの `json_get`
    - 不足キーの `json_get`（デフォルト値）
    - ネスト値の `json_get`
+
 3. テストを実行し、すべて合格することを確認
 
 ### 練習問題 6-3: エラーリカバリを実装
 
 アップロード関数に再試行ロジックを追加：
+
 1. `MAX_RETRIES=3` を定義
+
 2. 再試行ループでアップロードをラップ
+
 3. 指数バックオフを追加（1 秒、2 秒、4 秒の遅延）
+
 4. 再試行をログに記録
 
 例：
@@ -996,17 +1027,23 @@ upload_with_retry() {
 
 ### Shell デバッグガイド
 - [Bash マニュアル：The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html)
+
 - [ShellCheck ユーザーガイド](https://github.com/koalaman/shellcheck#user-content-gallery-of-bad-code)
+
 - [Advanced Bash-Scripting Guide: Debugging](https://tldp.org/LDP/abs/html/debugging.html)
 
 ### ツール
 - [ShellCheck](https://www.shellcheck.net/) - オンライン Shell スクリプトアナライザー
+
 - [shfmt](https://github.com/mvdan/sh) - Shell コードフォーマッター
+
 - [bashdb](http://bashdb.sourceforge.net/) - Bash デバッガー
 
 ### 副読本
 - 「Writing Secure Shell Scripts」- OWASP ガイドライン
+
 - 「Advanced Bash Error Handling」- trap、ERR シグナル
+
 - 「Unit Testing in Shell」- bats などのテストフレームワーク
 
 ---
@@ -1016,13 +1053,21 @@ upload_with_retry() {
 **第 7 章：公開と配布**
 
 第 7 章では、Skill を Plugin Marketplace に公開する方法を学びます：
+
 - Plugin Marketplace アーキテクチャと要件
+
 - `marketplace.json` 設定（すべてのフィールドを説明）
+
 - Semantic Versioning（SemVer）仕様
+
 - GitHub API を介した Release の作成
+
 - 自動化リリースワークフロー（git → tag → release）
+
 - 多言語 README 構造
+
 - 公開前の Plugin 検証とテスト
+
 - マーケットプレイスへの提出
 
 第 7 章の終わりまでに、Skill を世界に公開する準備が整います！

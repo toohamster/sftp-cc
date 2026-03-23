@@ -3,12 +3,19 @@
 > "Good localization is not translation, it's adaptation." — i18n Best Practices
 
 In this chapter, you will learn:
+
 - Why multi-language support matters (user experience, market reach)
+
 - Variable-based i18n solution design
+
 - Complete i18n.sh implementation
+
 - How to use multi-language messages in scripts
+
 - Message naming conventions
+
 - Extending to new languages
+
 - Testing and verification methods
 
 ---
@@ -37,9 +44,13 @@ $ bash sftp-push.sh
 ```
 
 **Value of Multi-Language**:
+
 - Lowers usage barrier
+
 - Reduces user confusion
+
 - Improves professional image
+
 - Expands user base
 
 ### 5.1.2 Target User Analysis
@@ -91,9 +102,13 @@ eval_gettext "Upload complete"
 ```
 
 **Problems**:
+
 - ❌ Requires gettext installation
+
 - ❌ Requires understanding .po/.mo format
+
 - ❌ Compilation step adds complexity
+
 - ❌ Not available on all systems
 
 #### Option 2: Variable-Based (Our Choice)
@@ -107,9 +122,13 @@ echo "$MSG_UPLOAD_COMPLETE"
 ```
 
 **Advantages**:
+
 - ✅ Zero external dependencies
+
 - ✅ No new tools to learn
+
 - ✅ Pure Shell native support
+
 - ✅ Change and use immediately
 
 ### 5.2.2 Variable Solution Core Design
@@ -566,9 +585,13 @@ load_messages() {
 
 ````markdown
 Supported Languages:
+
 - English (en)
+
 - Chinese (zh, zh_CN, zh_TW)
+
 - Japanese (ja, ja_JP)
+
 - Korean (ko, ko_KR)  ← New
 ````
 
@@ -764,11 +787,17 @@ rm -f /tmp/test-config.json
 ### What You've Learned
 
 - ✅ Why multi-language matters for user experience
+
 - ✅ Variable-based i18n solution design
+
 - ✅ Complete i18n.sh implementation
+
 - ✅ How to use MSG_XXX variables in scripts
+
 - ✅ Message naming conventions
+
 - ✅ How to extend to new languages
+
 - ✅ Testing and verification methods
 
 ---
@@ -778,10 +807,15 @@ rm -f /tmp/test-config.json
 Before release, confirm:
 
 - [ ] All user-visible messages are translated
+
 - [ ] Three languages (en/zh/ja) messages complete
+
 - [ ] Message naming follows conventions
+
 - [ ] No hard-coded message strings
+
 - [ ] Tested output in each language
+
 - [ ] Documentation explains how to switch language
 
 ---
@@ -791,22 +825,27 @@ Before release, confirm:
 ### Exercise 5-1: Add English Messages
 
 - Check if i18n.sh has English default messages
+
 - Ensure all Chinese messages have English translations
 
 ### Exercise 5-2: Test Language Switching
 
 - Create three test configs (en/zh/ja)
+
 - Verify output in each language
 
 ### Exercise 5-3: Add Fourth Language
 
 - Choose a language you know
+
 - Add new branch in load_messages()
+
 - Translate all messages
 
 ### Exercise 5-4: Create Message List
 
 - Create a table of all MSG_XXX variables
+
 - Include English, Chinese, Japanese columns
 
 ---
@@ -815,6 +854,7 @@ Before release, confirm:
 
 ### Internationalization
 - "Internationalization Best Practices" — W3C guide
+
 - "Unicode Standard" — Character encoding reference
 
 ### Shell Scripting
@@ -827,13 +867,21 @@ Before release, confirm:
 **Chapter 6: Debugging and Testing**
 
 In Chapter 6, we cover debugging and testing techniques:
+
 - Shell script debugging basics (set command options)
+
 - Log level design
+
 - Verbose mode implementation
+
 - Temporary file management
+
 - Error handling patterns
+
 - Testing methods (unit, integration, dry-run)
+
 - Debugging real-world cases
+
 - Verification tools
 
 By the end of Chapter 6, you'll debug and test your Skills like a pro!

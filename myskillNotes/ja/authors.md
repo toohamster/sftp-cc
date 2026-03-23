@@ -19,7 +19,9 @@ sftp-cc の開発過程中、著者は Claude Code Skill 開発の完全な方�
 ## 技術スタック
 
 - **プログラミング言語**: Shell, PHP, JavaScript
+
 - **DevOps**: CI/CD, GitHub Actions, Docker
+
 - **開発ツール**: Claude Code, VS Code, Git
 
 ## オープンソースへの貢献
@@ -39,7 +41,9 @@ sftp-cc プロジェクトに加え、他のオープンソースプロジェク
 ## お問い合わせ
 
 - **GitHub**: [github.com/toohamster](https://github.com/toohamster)
+
 - **プロジェクトリポジトリ**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
+
 - **フィードバック**: GitHub で Issue をお開きください
 
 ---

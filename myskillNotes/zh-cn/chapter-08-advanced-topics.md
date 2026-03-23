@@ -3,15 +3,25 @@
 > "优秀的程序员写出的代码人类能读懂，而机器也能执行。" — Martin Fowler
 
 本章你将学到：
+
 - 性能优化技巧（减少子进程、批量处理）
+
 - 安全最佳实践（命令注入、路径安全）
+
 - 代码组织规范（函数命名、变量作用域）
+
 - 错误处理进阶（trap、超时处理）
+
 - 可维护性提升（注释规范、配置分离）
+
 - 用户反馈处理流程
+
 - 完整的故障排查清单
+
 - 扩展开发方向
+
 - 学习资源推荐
+
 - 本书总结和实战项目
 
 ---
@@ -989,19 +999,24 @@ check_dependencies
 ```
 1. 接收 Bug 报告
    ↓
+
 2. 复现问题
    ├── 能复现 → 进入修复流程
    └── 不能复现 → 请求更多信息
    ↓
+
 3. 确定严重性
    ├── 严重（崩溃、数据丢失）→ 立即修复，发布 Patch
    ├── 一般（功能异常）→ 计划修复
    └── 轻微（UI 问题）→ 排期修复
    ↓
+
 4. 修复和测试
    ↓
+
 5. 发布 Patch 版本
    ↓
+
 6. 通知报告者
 ```
 
@@ -1010,18 +1025,22 @@ check_dependencies
 ```
 1. 接收功能请求
    ↓
+
 2. 评估需求
    ├── 用户覆盖面
    ├── 实现复杂度
    └── 是否符合项目定位
    ↓
+
 3. 决策
    ├── 接受 → 加入 Roadmap
    ├── 拒绝 → 解释原因
    └── 搁置 → 等待更多反馈
    ↓
+
 4. 实现（接受时）
    ↓
+
 5. 发布 Minor 版本
 ```
 
@@ -1225,22 +1244,27 @@ check_dependencies
 #### 入门
 
 - 《Bash 初学者指南》- 中文版
+
 - 《Learning the bash Shell》- O'Reilly
 
 #### 进阶
 
 - 《Advanced Bash-Scripting Guide》- 免费在线书籍
+
 - 《Bash Cookbook》- O'Reilly
 
 #### 参考
 
 - [GNU Bash 官方文档](https://www.gnu.org/software/bash/manual/)
+
 - [ShellCheck 规则说明](https://github.com/koalaman/shellcheck/wiki/Checks)
 
 ### 8.9.2 Claude Code 开发
 
 - [Claude Code 官方文档](https://docs.anthropic.com/claude-code/)
+
 - [Plugin Marketplace](https://claude.ai/marketplace)
+
 - [sftp-cc 示例项目](https://github.com/toohamster/sftp-cc)
 
 ### 8.9.3 相关工具
@@ -1274,25 +1298,39 @@ check_dependencies
 在发布你的 Skill 之前，确认：
 
 **代码质量**
+
 - [ ] 通过 shellcheck 检查
+
 - [ ] 使用 set -euo pipefail
+
 - [ ] 完整的错误处理
+
 - [ ] 临时文件正确清理
 
 **文档完整**
+
 - [ ] README.md（英文）
+
 - [ ] README_CN.md（中文）
+
 - [ ] CHANGELOG.md
+
 - [ ] LICENSE
 
 **测试覆盖**
+
 - [ ] 单元测试通过
+
 - [ ] 集成测试通过
+
 - [ ] 多语言测试通过
 
 **发布准备**
+
 - [ ] marketplace.json 验证通过
+
 - [ ] 版本号正确
+
 - [ ] GitHub Release 已创建
 
 ### 8.10.3 下一步行动
@@ -1327,30 +1365,45 @@ check_dependencies
 ### 项目 8-1：创建你的第一个 Skill
 
 **要求**：
+
 1. 解决一个实际问题
+
 2. 包含完整的 SKILL.md
+
 3. 至少 2 个脚本
+
 4. 支持中英文触发词
 
 **示例想法**：
+
 - 数据库备份工具
+
 - 代码格式化助手
+
 - 项目初始化模板
+
 - API 测试工具
 
 ### 项目 8-2：添加多语言支持
 
 **要求**：
+
 1. 创建 i18n.sh
+
 2. 支持至少 3 种语言
+
 3. 所有用户可见消息都已翻译
 
 ### 项目 8-3：发布到 Marketplace
 
 **要求**：
+
 1. 创建 GitHub 仓库
+
 2. 编写完整的 README
+
 3. 创建第一个 Release
+
 4. 提交到 Plugin Marketplace
 
 ---
@@ -1360,10 +1413,15 @@ check_dependencies
 恭喜你完成了本书的学习！
 
 通过开发 sftp-cc 这个完整的 Claude Code Skill，你已经掌握了：
+
 - Plugin 架构和开发流程
+
 - Shell 脚本开发技巧
+
 - 多语言支持实现
+
 - 调试和测试方法
+
 - 发布和分发流程
 
 现在，开始创建你自己的 Skill 吧！

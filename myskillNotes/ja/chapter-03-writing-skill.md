@@ -3,12 +3,19 @@
 > 「完璧になるまでには、まず存在しなければならない」 — ウォルト・ディズニー
 
 この章では、次のことを学びます：
+
 - SKILL.md の完全な構造
+
 - YAML frontmatter の書き方
+
 - トリガーワードの設計
+
 - スクリプトパスの説明
+
 - 実行指示の記述
+
 - ユーザーガイドの作成
+
 - デバッグのヒント
 
 ---
@@ -32,20 +39,33 @@ description: 汎用 SFTP アップロードツール、自然言語でトリガ�
 ## トリガー
 
 **SFTP アップロード/デプロイ**:
+
 - "sync code to server"
+
 - "upload to server"
+
 - "deploy code"
+
 - "同步代码到服务器"
+
 - "上传到服务器"
+
 - "サーバーに同期する"
+
 - "デプロイする"
 
 **秘密鍵バインド**:
+
 - "bind sftp private key"
+
 - "bind ssh key"
+
 - "绑定 SFTP 私钥"
+
 - "绑定私钥"
+
 - "秘密鍵をバインドする"
+
 - "SSH 鍵をバインドする"
 
 **注**: "push"、"推送"、"プッシュ" はトリガーとして扱いません — git push と競合します。
@@ -112,22 +132,31 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-keybind.sh
 ## オプション
 
 **sftp-push.sh**：
+
 - `-n`, `--dry-run` — プレビューモード（実行せずに表示）
+
 - `--full` — 全量アップロード
+
 - `file1 file2` — 指定ファイルのみをアップロード
+
 - `-d dirname/` — 指定ディレクトリをアップロード
 
 ## トラブルシューティング
 
 **問題**: 接続に失敗
+
 - ネットワーク接続を確認
+
 - サーバーアドレスとポートを検証
+
 - 秘密鍵の権限を確認（600）
 
 **問題**: 設定ファイルが見つからない
+
 - `sftp-init.sh` を実行して初期化
 
 **問題**: 秘密鍵の権限エラー
+
 - `chmod 600 ~/.ssh/id_rsa` で権限を修正
 ````
 
@@ -161,9 +190,13 @@ description: Skill の簡単な説明
 ```
 
 **重要なルール**：
+
 1. `---` で開始し、`---` で終了
+
 2. 左揃え（インデントなし）
+
 3. `name` と `description` は必須
+
 4. UTF-8 エンコーディング
 
 ### 3.2.2 name フィールド
@@ -177,11 +210,17 @@ name: sftp-cc
 ```
 
 **命名規則**：
+
 - ✅ 小文字のみ使用
+
 - ✅ 区切りにはハイフン（`-`）を使用
+
 - ✅ 簡潔で説明적인名前
+
 - ❌ 大文字は使用しない
+
 - ❌ スペースは使用しない
+
 - ❌ 特殊文字は使用しない
 
 **良い例**：
@@ -212,9 +251,13 @@ description: 汎用 SFTP アップロードツール、自然言語でトリガ�
 ```
 
 **ベストプラクティス**：
+
 - 1 文で簡潔に（200 文字以内）
+
 - 主な機能を説明
+
 - キーワードを含める
+
 - 価値提案を明確化
 
 **良い例**：
@@ -246,13 +289,19 @@ description: SFTP ツール  # 短すぎる、不十分
 ## トリガー
 
 ✅ 良い：
+
 - "コードをサーバーに同期"
+
 - "変更をデプロイ"
+
 - "サーバーにアップロード"
 
 ❌ 悪い：
+
 - "sftp_push_execute"      # 機械的
+
 - "run_deployment_script"  # 不自然
+
 - "trigger_upload"         # 命令形
 ```
 
@@ -264,15 +313,21 @@ description: SFTP ツール  # 短すぎる、不十分
 ## トリガー
 
 **英語**：
+
 - "sync code to server"
+
 - "upload to server"
 
 **中国語**：
+
 - "同步代码到サーバー"
+
 - "上传到服务器"
 
 **日本語**：
+
 - "コードをサーバーに同期"
+
 - "サーバーにデプロイ"
 ```
 
@@ -282,12 +337,17 @@ description: SFTP ツール  # 短すぎる、不十分
 
 ```markdown
 ✅ 良い：
+
 - "sync **code** to **server**"  # 何処に何を同期
+
 - "upload **changed files**"     # 何を変更
 
 ❌ 悪い：
+
 - "sync"        # 何を？どこに？
+
 - "upload"      # 何を？
+
 - "push"        # git push と競合
 ```
 
@@ -297,13 +357,19 @@ description: SFTP ツール  # 短すぎる、不十分
 
 ```markdown
 ✅ 使用する：
+
 - "sync code to server"
+
 - "deploy to production"
 
 ❌ 避ける：
+
 - "push"              # git push
+
 - "commit"            # git commit
+
 - "merge"             # git merge
+
 - "checkout"          # git checkout
 ```
 
@@ -315,23 +381,34 @@ description: SFTP ツール  # 短すぎる、不十分
 ## トリガー
 
 **アップロード**：
+
 - "sync code to server"
+
 - "upload changes"
+
 - "deploy code"
 
 **設定**：
+
 - "setup sftp"
+
 - "configure deployment"
+
 - "initialize sftp"
 
 **認証**：
+
 - "bind ssh key"
+
 - "setup private key"
 ```
 
 **なぜグループ化するか**：
+
 1. Claude の意図認識を支援
+
 2. 類似トリガーを整理
+
 3. ドキュメントの可読性向上
 
 ---
@@ -499,10 +576,15 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh
 ```
 
 **フィールド説明**：
+
 - `host`: SFTP サーバーアドレス（必須）
+
 - `port`: SFTP ポート、デフォルト 22（オプション）
+
 - `username`: ログインユーザー名（必須）
+
 - `remote_path`: リモートデプロイ先パス（必須）
+
 - `language`: インターフェース言語、デフォルト "en"（オプション）
 ```
 
@@ -533,8 +615,11 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-init.sh
 **問題**: 接続に失敗
 
 **確認事項**：
+
 1. ネットワーク接続を確認
+
 2. サーバーアドレスとポートを検証
+
 3. 秘密鍵の権限を確認（600）
 
 **解決策**：
@@ -594,8 +679,11 @@ grep -A 5 "^---" skills/sftp-cc/SKILL.md
 #### 問題 1: Skill がトリガーされない
 
 **原因**：
+
 - トリガーワードが曖昧すぎる
+
 - YAML frontmatter の形式が不正
+
 - Plugin がロードされていない
 
 **解決策**：
@@ -611,6 +699,7 @@ claude plugin reload sftp-cc
 #### 問題 2: 変数が解決されない
 
 **原因**：
+
 - `${CLAUDE_PLUGIN_ROOT}` が Skill コンテキスト外で使用
 
 **解決策**：
@@ -630,8 +719,11 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/script.sh
 #### 問題 3: スクリプトが実行されない
 
 **原因**：
+
 - 実行権限がない
+
 - パスが正しくない
+
 - シェバングが不足
 
 **解決策**：
@@ -661,11 +753,17 @@ head -1 scripts/sftp-push.sh
 ### SKILL.md チェックリスト
 
 - [ ] YAML frontmatter に `name` と `description` がある
+
 - [ ] トリガーワードが具体的で多言語
+
 - [ ] `${CLAUDE_PLUGIN_ROOT}` を使用
+
 - [ ] 実行スクリプトのパスが正しい
+
 - [ ] 設定ファイルの説明がある
+
 - [ ] はじめにセクションがある
+
 - [ ] トラブルシューティングがある
 
 ---
@@ -675,26 +773,39 @@ head -1 scripts/sftp-push.sh
 ### 練習問題 3-1: SKILL.md を作成
 
 初めての Skill を作成：
+
 1. `skills/hello-world/SKILL.md` を作成
+
 2. YAML frontmatter を設定
+
 3. トリガーワードを定義（3 つ以上）
+
 4. 実行スクリプトを指定
+
 5. 簡単なユーザーガイドを追加
 
 ### 練習問題 3-2: トリガーワードを設計
 
 あなたの Skill のトリガーワード：
+
 1. 英語で 3 つのトリガーを設計
+
 2. 中国語で 3 つのトリガーを設計
+
 3. 日本語で 3 つのトリガーを設計
+
 4. 競合するワードをリスト
 
 ### 練習問題 3-3: ユーザーガイドを作成
 
 クイックスタートガイド：
+
 1. 必要な前提条件をリスト
+
 2. インストール手順を記述
+
 3. 基本的な使用例を示す
+
 4. よくある問題を記載
 
 ---
@@ -703,14 +814,17 @@ head -1 scripts/sftp-push.sh
 
 ### 公式ドキュメント
 - [Claude Code Skill 仕様](https://docs.anthropic.com/claude-code/)
+
 - [YAML Frontmatter 仕様](https://jekyllrb.com/docs/front-matter/)
 
 ### 例プロジェクト
 - [sftp-cc SKILL.md](https://github.com/toohamster/sftp-cc/blob/main/skills/sftp-cc/SKILL.md)
+
 - [その他の Skill 例](https://claude.ai/marketplace)
 
 ### 副読本
 - 「Markdown 完璧ガイド」— 書き方とベストプラクティス
+
 - 「YAML 入門」— 構造と構文
 
 ---
@@ -720,11 +834,17 @@ head -1 scripts/sftp-push.sh
 **第 4 章：スクリプト開発**
 
 第 4 章では、実際のスクリプト開発を学びます：
+
 - 標準スクリプト構造
+
 - ピュア Shell JSON パース
+
 - エラーハンドリングパターン
+
 - Git 統合
+
 - SFTP バッチモード
+
 - 一時ファイル管理
 
 第 4 章の終わりまでに、完全に機能するスクリプトが書けます。

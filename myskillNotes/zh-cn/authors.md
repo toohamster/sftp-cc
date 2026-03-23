@@ -19,7 +19,9 @@ toohamster 是一名热爱开源的开发者，专注于自动化开发和 DevOp
 ## 技术栈
 
 - **编程语言**: Shell, PHP, JavaScript
+
 - **DevOps**: CI/CD, GitHub Actions, Docker
+
 - **开发工具**: Claude Code, VS Code, Git
 
 ## 开源贡献
@@ -39,7 +41,9 @@ toohamster 是一名热爱开源的开发者，专注于自动化开发和 DevOp
 ## 联系方式
 
 - **GitHub**: [github.com/toohamster](https://github.com/toohamster)
+
 - **项目仓库**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
+
 - **问题反馈**: 请在 GitHub 仓库中提 Issue
 
 ---

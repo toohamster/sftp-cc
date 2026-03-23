@@ -19,9 +19,13 @@
 ## 本书目标
 
 通过开发一个完整的 SFTP 上传工具（sftp-cc），带你掌握 Claude Code Skill 的开发全流程：
+
 - 理解 Claude Code Plugin 架构
+
 - 掌握 SKILL.md 编写技巧
+
 - 学会多语言支持（i18n）
+
 - 发布到 Plugin Marketplace
 
 ---
@@ -46,7 +50,9 @@
 **推荐顺序**：从第 1 章开始，按顺序阅读和实践。
 
 也可以根据你的需求跳转到特定章节：
+
 - 已有 Skill 想优化？→ 直接阅读 [第 5 章 (i18n)](chapter-05-internationalization.md)、[第 6 章 (调试)](chapter-06-debugging-and-testing.md)
+
 - 准备发布？→ 跳转到 [第 7 章 (发布)](chapter-07-publishing-and-distribution.md)
 
 ---
@@ -54,7 +60,9 @@
 ## 前置要求
 
 - 基础 Shell 脚本知识
+
 - 了解 Git 基本操作
+
 - 有 Claude Code 使用经验
 
 ---
@@ -93,7 +101,9 @@ git clone https://github.com/toohamster/sftp-cc.git
 根据 [MIT License](../../LICENSE) 授权。
 
 - ✅ 免费阅读、复制、修改
+
 - ✅ 个人学习使用
+
 - ✅ 在 GitHub 等平台分享
 
 ### 纸制版/商业版

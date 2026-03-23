@@ -3,9 +3,13 @@
 > 「最も良いツールは、存在していることを忘れてしまうものだ」 — アラン・ケイ
 
 この章では、次のことを学びます：
+
 - Claude Code Skill の定義と、それが解決する問題
+
 - Plugin アーキテクチャのコアコンポーネントと動作原理
+
 - 完全な開発環境のセットアップ方法
+
 - 初めての Hello World Skill を実際に作成
 
 ---
@@ -27,8 +31,11 @@ Claude Code は Anthropic がリリースした CLI プログラミングアシ�
 ### 1.1.2 Skill の正式な定義
 
 **Claude Code Skill** は Markdown ベースのプラグイン定義形式で、Claude に次のことを伝えます：
+
 1. **いつトリガーするか** — ユーザーが何を言えばこの Skill を呼び出すか
+
 2. **どのように実行するか** — トリガー後にどのスクリプトやコマンドを実行するか
+
 3. **何の機能を提供するか** — Skill が完了できる特定の機能
 
 コードで表現すると、Skill には最低限以下内容が必要です：
@@ -90,13 +97,19 @@ Skill のポジショニングを理解するには、他のシステムと比�
 | **典型的な開発時間** | 30 分 | 数日〜数週間 |
 
 **Skill を選ぶべき場合**：
+
 - ✅ 迅速に自動化スクリプトを実装する必要がある
+
 - ✅ コマンドラインで機能を完了できる
+
 - ✅ 自然言語でトリガーしたい
 
 **VS Code 拡張を選ぶべき場合**：
+
 - ✅ UI インターフェースが必要
+
 - ✅ 深い VS Code 機能統合（デバッガー、ターミナル）が必要
+
 - ✅ 複雑なユーザー設定インターフェースが必要
 
 #### JetBrains プラグインとの比較
@@ -164,8 +177,11 @@ description: Skill の簡単な説明
 ````
 
 **重要な要素**：
+
 - **YAML Frontmatter**: 上部のメタデータ（`---` の間）
+
 - **トリガーワード**: Skill をアクティブにするフレーズ
+
 - **実行ロジック**: トリガー後に発生すること
 
 #### 2. ${CLAUDE_PLUGIN_ROOT} 変数
@@ -174,7 +190,9 @@ description: Skill の簡単な説明
 **重要**: ${CLAUDE_PLUGIN_ROOT} は Claude Code によって注入される Skill 内部変数
 
 - Skill コンテキストでのみ有効
+
 - 実行時にプラグインルートディレクトリパスに自動解決
+
 - 例：`~/.claude/plugins/marketplaces/my-plugin/`
 ```
 
@@ -195,7 +213,9 @@ Claude Code が ${CLAUDE_PLUGIN_ROOT} を実際のパスで置換
 scripts/ ディレクトリは実行可能スクリプトを格納します：
 
 - **サポート言語**: Shell、Python、Ruby、Node.js など
+
 - **アクセス方法**: `${CLAUDE_PLUGIN_ROOT}/scripts/` 経由
+
 - **ベストプラクティス**: スクリプトはモジュール式でよくドキュメント化
 
 **スクリプト構造の例**：
@@ -340,10 +360,15 @@ description: 私の最初の Skill — 挨拶するとこんにちはと返す
 ## トリガー
 
 ユーザーが次に言ったとき：
+
 - "こんにちは"
+
 - "やあ"
+
 - "やっほー"
+
 - "hello"
+
 - "hi"
 
 ## 実行
@@ -383,22 +408,31 @@ claude
 ### 1.5.1 単純なものから始める
 
 シンプルな「Hello World」Skill から始めましょう：
+
 - 単一のトリガーワード
+
 - 単一の echo コマンド
+
 - 複雑なロジックなし
 
 ### 1.5.2 段階的にテスト
 
 ステップバイステップで構築とテスト：
+
 1. まずスクリプトを個別にテスト
+
 2. SKILL.md ラッパーを追加
+
 3. Claude Code でテスト
 
 ### 1.5.3 進めながらドキュメント化
 
 良いドキュメントは役立ちます：
+
 - Skill の機能を説明
+
 - すべてのトリガーワードをリスト
+
 - 使用例を提供
 
 ---
@@ -417,9 +451,13 @@ claude
 ### 学んだこと
 
 - ✅ Claude Code Skill とその目的
+
 - ✅ Plugin アーキテクチャ：SKILL.md、scripts/、marketplace.json
+
 - ✅ 変数注入の仕組み
+
 - ✅ 開発環境のセットアップ方法
+
 - ✅ Hello World Skill を作成
 
 ---
@@ -429,15 +467,21 @@ claude
 ### 練習問題 1-1: Hello World をカスタマイズ
 
 Hello World Skill を修正：
+
 - 母国語でトリガーワードを追加
+
 - パーソナライズされたメッセージを表示
+
 - 現在の日時を含める
 
 ### 練習問題 1-2: 天気 Skill を作成
 
 シンプルな天気 Skill を作成：
+
 - 「天気」または「今日の天気」でトリガー
+
 - モックの天気予報を表示
+
 - （オプション）`curl` で実際の天気データを取得
 
 例：
@@ -448,7 +492,9 @@ curl wttr.in?format=3
 ### 練習問題 1-3: 既存の Skill を調査
 
 - [Plugin Marketplace](https://claude.ai/marketplace) を閲覧
+
 - 2〜3 個の既存の Skill を研究
+
 - トリガーワードのパターンを記録
 
 ---
@@ -457,14 +503,17 @@ curl wttr.in?format=3
 
 ### 公式ドキュメント
 - [Claude Code ドキュメント](https://docs.anthropic.com/claude-code/)
+
 - [Plugin Marketplace](https://claude.ai/marketplace)
 
 ### 例プロジェクト
 - [sftp-cc](https://github.com/toohamster/sftp-cc) — SFTP アップロードツール（本書の companion プロジェクト）
+
 - [その他の例](https://github.com/topics/claude-code-skill)
 
 ### 副読本
 - 「Advanced Bash-Scripting Guide」— Shell スクリプトの深掘り
+
 - 「Writing Secure Code」— セキュリティベストプラクティス
 
 ---
@@ -474,9 +523,13 @@ curl wttr.in?format=3
 **第 2 章：プロジェクト計画と設計**
 
 第 2 章では、プロジェクト計画と設計を深く掘り下げます：
+
 - ペインポイントからの要件分析
+
 - 機能バウンダリの定義（何をするか vs 何をしないか）
+
 - ディレクトリ構造のベストプラクティス
+
 - 設定ファイル設計の原則
 
 第 2 章の終わりまでに、sftp-cc プロジェクトの完全な設計ドキュメントを完成させます。

@@ -3,13 +3,21 @@
 > "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it." — Brian W. Kernighan
 
 In this chapter, you will learn:
+
 - Shell script debugging basics (`set` command options)
+
 - Log level design and implementation
+
 - Verbose mode for detailed output
+
 - Temporary file management with `trap`
+
 - Error handling patterns and validation
+
 - Testing methods (unit, integration, dry-run)
+
 - Real-world debugging case studies
+
 - Tools for verification
 
 ---
@@ -146,9 +154,13 @@ echo "Done"
 ### 6.2.1 Why Logging Matters
 
 Good logs answer:
+
 - What happened?
+
 - When did it happen?
+
 - What was the context?
+
 - What went wrong (if anything)?
 
 ### 6.2.2 Four-Level Log System
@@ -920,14 +932,23 @@ sudo dtruss ./sftp-push.sh 2>&1 | head -100
 ### Best Practices Checklist
 
 - [ ] Always use `set -euo pipefail` in production scripts
+
 - [ ] Implement log functions (info/warn/error/debug)
+
 - [ ] Add verbose mode (`-v` flag) for debugging
+
 - [ ] Use `mktemp` for temp files, never hardcoded paths
+
 - [ ] Register `trap cleanup EXIT` immediately after creating temp files
+
 - [ ] Validate all required parameters before proceeding
+
 - [ ] Check for required commands with `command -v`
+
 - [ ] Provide dry-run mode (`-n` flag) for preview
+
 - [ ] Run ShellCheck before committing scripts
+
 - [ ] Use consistent exit codes
 
 ---
@@ -939,7 +960,9 @@ sudo dtruss ./sftp-push.sh 2>&1 | head -100
 Add verbose mode to an existing script:
 
 1. Add `-v` / `--verbose` argument parsing
+
 2. Implement `debug()` function that only outputs in verbose mode
+
 3. Add debug statements showing:
    - Configuration values being used
    - Files being processed
@@ -958,10 +981,12 @@ Example output:
 Create a test file for JSON parsing functions:
 
 1. Create `tests/test-json-parser.sh`
+
 2. Write test cases for:
    - `json_get` with existing key
    - `json_get` with missing key (default value)
    - `json_get` with nested values
+
 3. Run tests and verify all pass
 
 Example structure:
@@ -988,8 +1013,11 @@ echo "All tests passed!"
 Add retry logic to your upload function:
 
 1. Define `MAX_RETRIES=3`
+
 2. Wrap upload in retry loop
+
 3. Add exponential backoff (1s, 2s, 4s delays)
+
 4. Log retry attempts
 
 Example:
@@ -1017,17 +1045,23 @@ upload_with_retry() {
 
 ### Shell Debugging Guides
 - [Bash Manual: The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html)
+
 - [ShellCheck User Guide](https://github.com/koalaman/shellcheck#user-content-gallery-of-bad-code)
+
 - [Advanced Bash-Scripting Guide: Debugging](https://tldp.org/LDP/abs/html/debugging.html)
 
 ### Tools
 - [ShellCheck](https://www.shellcheck.net/) - Online shell script analyzer
+
 - [shfmt](https://github.com/mvdan/sh) - Shell code formatter
+
 - [bashdb](http://bashdb.sourceforge.net/) - Bash debugger
 
 ### Further Reading
 - "Writing Secure Shell Scripts" - OWASP guidelines
+
 - "Advanced Bash Error Handling" - trap, ERR signals
+
 - "Unit Testing in Shell" - Testing frameworks like bats
 
 ---
@@ -1037,13 +1071,21 @@ upload_with_retry() {
 **Chapter 7: Publishing and Distribution**
 
 In Chapter 7, we'll cover publishing your Skill to the Plugin Marketplace:
+
 - Plugin Marketplace architecture and requirements
+
 - `marketplace.json` configuration (all fields explained)
+
 - Semantic Versioning (SemVer) specification
+
 - Creating GitHub Releases via API
+
 - Automated release workflow (git → tag → release)
+
 - Multi-language README structure
+
 - Plugin validation and testing before publishing
+
 - Submitting to the marketplace
 
 By the end of Chapter 7, you'll be ready to share your Skill with the world!

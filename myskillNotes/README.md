@@ -46,7 +46,9 @@ This book guides you through the complete process of developing a Claude Code Sk
 **toohamster** - GitHub: [@toohamster](https://github.com/toohamster)
 
 - [中文版关于作者](zh-cn/authors.md)
+
 - [English About Author](en/authors.md)
+
 - [日本語 著者について](ja/authors.md)
 
 ---
@@ -59,7 +61,9 @@ This book guides you through the complete process of developing a Claude Code Sk
 Released under the [MIT License](../LICENSE).
 
 - ✅ Free to read, copy, modify
+
 - ✅ Personal learning and use
+
 - ✅ Share on GitHub and other platforms
 
 ### Print / Commercial Version

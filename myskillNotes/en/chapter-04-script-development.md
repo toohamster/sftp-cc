@@ -3,10 +3,15 @@
 > "Simplicity is the soul of efficiency." — Austin Freeman
 
 In this chapter, you will learn:
+
 - Complete script structure template
+
 - Pure Shell JSON parsing (zero external dependencies)
+
 - Comprehensive error handling patterns
+
 - Temporary file management best practices
+
 - Full sftp-keybind.sh code walkthrough
 
 ---
@@ -665,10 +670,15 @@ main "$@"
 ### What You've Learned
 
 - ✅ Complete script structure template
+
 - ✅ set command options and their effects
+
 - ✅ Pure Shell JSON parsing implementation
+
 - ✅ Error handling patterns
+
 - ✅ Temporary file management best practices
+
 - ✅ Full working script (sftp-keybind.sh)
 
 ---
@@ -678,25 +688,37 @@ main "$@"
 ### Exercise 4-1: Create Script Template
 
 Create a new script using the template:
+
 1. Copy the standard structure
+
 2. Add your script name and description
+
 3. Implement check_dependencies()
+
 4. Add basic argument parsing
 
 ### Exercise 4-2: Implement JSON Parser
 
 Test JSON parsing functions:
+
 1. Create a test JSON file
+
 2. Implement json_get() and json_get_num()
+
 3. Test with various JSON formats
+
 4. Handle edge cases (null, missing keys)
 
 ### Exercise 4-3: Write a Utility Script
 
 Create a simple utility script:
+
 - Reads a configuration file
+
 - Validates required fields
+
 - Performs a simple action
+
 - Handles errors gracefully
 
 ---
@@ -705,11 +727,14 @@ Create a simple utility script:
 
 ### Shell Scripting
 - "Advanced Bash-Scripting Guide" — Comprehensive reference
+
 - "Bash Cookbook" — Practical recipes
+
 - [ShellCheck](https://www.shellcheck.net/) — Static analysis tool
 
 ### Error Handling
 - "Writing Robust Bash Scripts" — Best practices guide
+
 - set command options: `help set` in bash
 
 ---
@@ -719,10 +744,15 @@ Create a simple utility script:
 **Chapter 5: Internationalization (i18n)**
 
 In Chapter 5, we implement multi-language support:
+
 - Why multi-language matters
+
 - Variable-based i18n solution design
+
 - Complete i18n.sh implementation
+
 - Using i18n in your scripts
+
 - Supporting English, Chinese, and Japanese
 
 By the end of Chapter 5, your Skills will speak your users' language!

@@ -3,12 +3,19 @@
 > "如果你不能简单地描述它，你就没有真正理解它。" — Albert Einstein
 
 本章你将学到：
+
 - 如何从痛点出发进行需求分析
+
 - 功能边界的界定方法（做什么 vs 不做什么）
+
 - 模块化功能设计技巧
+
 - 目录结构的最佳实践
+
 - 配置文件的设计原则
+
 - 触发词设计的方法论
+
 - 技术选型的评估框架
 
 ---
@@ -25,13 +32,17 @@
 场景：使用 Claude Code 进行 Web 项目开发
 
 1. 开发者在本地使用 Claude Code 编写代码
+
 2. Claude 修改了 src/user/controller.php
+
 3. 需要到测试服务器验证功能
+
 4. 手动操作：
    - 打开终端
    - ssh 登录测试服务器
    - git pull 拉取最新代码
    - 或者用 scp 上传修改的文件
+
 5. 重复步骤 3-4 每次 Claude 修改代码后
 ```
 
@@ -48,9 +59,13 @@
 
 ```
 如果 Claude Code 有一个 Skill 可以：
+
 - 听懂"同步代码到服务器"这样的自然语言
+
 - 自动检测哪些文件被修改了
+
 - 只上传变更的文件（增量）
+
 - 自动处理 SSH 密钥和权限
 
 那将大大提升开发效率。
@@ -333,12 +348,16 @@ sftp-push.sh
 
 # 行为
 1. 读取 .last-push 文件中的上次提交 hash
+
 2. 计算从上次提交到现在的变更
+
 3. 只上传变更的文件
+
 4. 更新 .last-push 文件
 
 # 适用场景
 - 日常开发部署
+
 - 小改动频繁
 ```
 
@@ -350,13 +369,18 @@ sftp-push.sh --full
 
 # 行为
 1. 忽略 .last-push 文件
+
 2. 扫描项目所有文件
+
 3. 上传所有非排除的文件
+
 4. 更新 .last-push 文件
 
 # 适用场景
 - 首次部署
+
 - .last-push 文件丢失
+
 - 不确定状态时
 ```
 
@@ -368,11 +392,14 @@ sftp-push.sh file1.php file2.php
 
 # 行为
 1. 检查指定文件是否存在
+
 2. 上传列出的文件
+
 3. 不更新 .last-push 文件
 
 # 适用场景
 - 紧急修复单个文件
+
 - 调试特定问题
 ```
 
@@ -384,11 +411,14 @@ sftp-push.sh -d src/controllers/
 
 # 行为
 1. 检查指定目录是否存在
+
 2. 递归上传整个目录
+
 3. 不更新 .last-push 文件
 
 # 适用场景
 - 修改了整个模块
+
 - 新功能的完整目录
 ```
 
@@ -400,11 +430,14 @@ sftp-push.sh -n
 
 # 行为
 1. 执行所有检测逻辑
+
 2. 显示将执行的操作
+
 3. 不实际上传
 
 # 适用场景
 - 确认将上传哪些文件
+
 - 调试配置问题
 ```
 
@@ -809,12 +842,17 @@ bash scripts/sftp-init.sh
 
 ```
 ✅ 好的触发词
+
 - "sync code to server"    # 用户会说的话
+
 - "上传代码"               # 自然的中文表达
+
 - "デプロイして"          # 自然的日文表达
 
 ❌ 差的触发词
+
 - "execute_sftp_upload"   # 像函数名，不像人话
+
 - "调用 sftp 推送功能"      # 太正式
 ```
 
@@ -842,22 +880,35 @@ bash scripts/sftp-init.sh
 
 ````markdown
 **英文**:
+
 - "sync code to server"
+
 - "upload to server"
+
 - "deploy code"
+
 - "push to server"
+
 - "sftp upload"
 
 **中文**:
+
 - "同步代码到服务器"
+
 - "上传到服务器"
+
 - "部署代码"
+
 - "把文件传到服务器上"
+
 - "sftp 上传"
 
 **日文**:
+
 - "サーバーに同期する"
+
 - "コードをデプロイする"
+
 - "アップロード"
 ````
 
@@ -865,17 +916,25 @@ bash scripts/sftp-init.sh
 
 ````markdown
 **英文**:
+
 - "bind sftp private key"
+
 - "bind ssh key"
+
 - "sftp keybind"
 
 **中文**:
+
 - "绑定 SFTP 私钥"
+
 - "绑定私钥"
+
 - "自动绑定私钥"
 
 **日文**:
+
 - "秘密鍵をバインドする"
+
 - "SSH 鍵をバインドする"
 ````
 
@@ -883,13 +942,19 @@ bash scripts/sftp-init.sh
 
 ````markdown
 **英文**:
+
 - "initialize sftp config"
+
 - "setup sftp"
+
 - "configure sftp"
 
 **中文**:
+
 - "初始化 SFTP 配置"
+
 - "配置 SFTP"
+
 - "设置 SFTP"
 ````
 
@@ -1031,12 +1096,17 @@ error_handler() {
 外部依赖 = 需要额外安装的命令或库
 
 ✅ 内部命令（可用）
+
 - bash 内置命令：echo, read, test, [[ ]]
+
 - POSIX 标准命令：grep, sed, awk, find, sort
 
 ❌ 外部依赖（避免）
+
 - jq（JSON 处理）
+
 - python3（如果作为依赖）
+
 - 任何需要安装的工具
 ```
 
@@ -1126,12 +1196,19 @@ error_handler() {
 在开始编码前，确认：
 
 - [ ] 明确了目标用户和痛点
+
 - [ ] 列出了优先级需求清单
+
 - [ ] 定义了功能边界（做/不做）
+
 - [ ] 设计了模块结构和职责
+
 - [ ] 规划了目录结构
+
 - [ ] 设计了配置文件格式
+
 - [ ] 列出了触发词列表
+
 - [ ] 完成了技术选型论证
 
 ---
@@ -1140,10 +1217,12 @@ error_handler() {
 
 ### 需求工程
 - 《软件需求》- Karl Wiegers
+
 - 《用户故事地图》- Jeff Patton
 
 ### 架构设计
 - 《代码整洁之道》- Robert C. Martin
+
 - 《设计模式》- Gang of Four
 
 ### 技术写作
@@ -1154,10 +1233,15 @@ error_handler() {
 ## 下一章预告
 
 第 3 章将带你**编写第一个 Skill**：
+
 - YAML Frontmatter 详解
+
 - SKILL.md 完整结构
+
 - 触发词编写技巧
+
 - 脚本执行指引
+
 - 第一个可运行的 Skill
 
 ---

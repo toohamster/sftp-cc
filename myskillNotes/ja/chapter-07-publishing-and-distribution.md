@@ -3,13 +3,21 @@
 > 「共有された知識は増殖する」 — 匿名
 
 この章では、次のことを学びます：
+
 - Plugin Marketplace アーキテクチャと要件
+
 - `marketplace.json` 設定（すべてのフィールドを説明）
+
 - Semantic Versioning（SemVer）仕様
+
 - GitHub API を介したリリース作成
+
 - 自動化リリースワークフロー（git → tag → release）
+
 - 多言語 README 構造
+
 - 公開前の Plugin 検証
+
 - 配布戦略
 
 ---
@@ -127,7 +135,9 @@ sftp-cc/
 
 #### `name`（必須）
 - **型**：文字列
+
 - **形式**：小文字、ハイフン許可
+
 - **目的**：プラグインの一意な識別子
 
 ```json
@@ -142,7 +152,9 @@ sftp-cc/
 
 #### `description`（必須）
 - **型**：文字列
+
 - **最大長**：200 文字
+
 - **目的**：マーケットプレイスリストに表示
 
 ```json
@@ -152,12 +164,16 @@ sftp-cc/
 ```
 
 **ヒント**：
+
 - 何をするかで始める
+
 - 主な利点を含める
+
 - 簡潔に保つ
 
 #### `author`（推奨）
 - **型**：文字列
+
 - **形式**：あなた名前または GitHub ユーザー名
 
 ```json
@@ -168,6 +184,7 @@ sftp-cc/
 
 #### `version`（必須）
 - **型**：文字列
+
 - **形式**：Semantic Version（SemVer）- セクション 7.3 を参照
 
 ```json
@@ -178,6 +195,7 @@ sftp-cc/
 
 #### `license`（推奨）
 - **型**：文字列
+
 - **形式**：SPDX ライセンス識別子
 
 ```json
@@ -205,6 +223,7 @@ sftp-cc/
 
 #### `repository`（推奨）
 - **型**：オブジェクト
+
 - **目的**：ソースコードへのリンク
 
 ```json
@@ -218,6 +237,7 @@ sftp-cc/
 
 #### `homepage`（推奨）
 - **型**：文字列
+
 - **目的**：プロジェクトホームページ/ドキュメント
 
 ```json
@@ -228,6 +248,7 @@ sftp-cc/
 
 #### `keywords`（オプション）
 - **型**：文字列の配列
+
 - **目的**：ユーザーがプラグインを見つけるのを支援
 
 ```json
@@ -245,6 +266,7 @@ sftp-cc/
 
 #### `engines`（オプション）
 - **型**：オブジェクト
+
 - **目的**：Claude Code バージョン要件を指定
 
 ```json
@@ -266,6 +288,7 @@ sftp-cc/
 
 #### `categories`（オプション）
 - **型**：文字列の配列
+
 - **目的**：関連プラグインをグループ化
 
 ```json
@@ -279,12 +302,19 @@ sftp-cc/
 ```
 
 **一般的なカテゴリ**：
+
 - `productivity` - ワークフローの改善
+
 - `file-operations` - ファイル操作
+
 - `deployment` - デプロイメントツール
+
 - `code-generation` - コード作成
+
 - `testing` - テストユーティリティ
+
 - `documentation` - ドキュメント生成
+
 - `integration` - 外部サービス
 
 ### 7.2.3 検証
@@ -328,8 +358,11 @@ Semantic Versioning 2.0.0（SemVer）は、リリースの変更について意�
 後方互換のバグ修正のためにインクリメント：
 
 - 既存機能のバグを修正
+
 - セキュリティパッチ
+
 - パフォーマンスの改善（API 変更なし）
+
 - ドキュメントの更新
 
 **例**：
@@ -344,7 +377,9 @@ Semantic Versioning 2.0.0（SemVer）は、リリースの変更について意�
 後方互換の新機能のためにインクリメント：
 
 - 新しい Skill またはスクリプト
+
 - 新しい設定オプション（デフォルト付き）
+
 - 拡張機能（既存を壊さない）
 
 **例**：
@@ -359,8 +394,11 @@ Semantic Versioning 2.0.0（SemVer）は、リリースの変更について意�
 破壊的変更のためにインクリメント：
 
 - Skill の削除または改名
+
 - 設定ファイル形式の変更（既存の設定を壊す）
+
 - 非互換な方法でのスクリプト動作の変更
+
 - 非推奨機能の削除
 
 **例**：
@@ -411,15 +449,23 @@ Semantic Versioning 2.0.0（SemVer）は、リリースの変更について意�
 ### 7.4.1 リリースを自動化する理由
 
 手動リリースはエラーが発生しやすい：
+
 - ❌ タグの作成を忘れる
+
 - ❌ タグのコミットが間違っている
+
 - ❌ リリースノートが一貫していない
+
 - ❌ リリースにファイルが missing
 
 自動化リリースは：
+
 - ✅ 一貫している
+
 - ✅ 再現可能
+
 - ✅ 追跡可能
+
 - ✅ 高速
 
 ### 7.4.2 GitHub API 概要
@@ -435,7 +481,9 @@ GitHub はリリース作成のための REST API を提供：
 | `/repos/{owner}/{repo}` | GET | リポジトリ情報を取得 |
 
 **認証**：
+
 - パーソナルアクセストークン（PAT）または OAuth トークンを使用
+
 - 必要なスコープ：`repo`（プライベートリポジトリの完全制御）
 
 ### 7.4.3 GitHub トークンの取得
@@ -461,9 +509,13 @@ echo $GITHUB_TOKEN
 #### 方法 3: パーソナルアクセストークンを作成
 
 1. GitHub → 設定 → 開発者設定 → パーソナルアクセストークンに移動
+
 2. 「新しいトークンを生成（クラシック）」をクリック
+
 3. スコープを選択：`repo`（完全制御）
+
 4. トークンを生成してコピー
+
 5. 安全に保管（パスワードマネージャー、`~/.netrc` など）
 
 ### 7.4.4 API を介したタグの作成
@@ -696,8 +748,11 @@ Universal SFTP upload tool for Claude Code.
 ## 機能
 
 - 🚀 ワンコマンドでリモートサーバーにアップロード
+
 - 🔄 増分同期（変更ファイルのみ）
+
 - 🔐 自動 SSH 秘密鍵バインド
+
 - 🌍 多言語サポート（EN/ZH/JA）
 
 ## インストール
@@ -709,10 +764,12 @@ Universal SFTP upload tool for Claude Code.
 ## クイックスタート
 
 1. 秘密鍵を `.claude/sftp-cc/` に配置
+
 2. 初期化を実行：
    ```bash
    bash scripts/sftp-init.sh --host example.com --username deploy --remote-path /var/www
    ```
+
 3. コードをアップロード：
    ```
    ユーザー：「コードをサーバーに同期」
@@ -743,6 +800,7 @@ Universal SFTP upload tool for Claude Code.
 ## 他の言語
 
 - [中文](README_CN.md)
+
 - [日本語](README_JP.md)
 
 ## ライセンス
@@ -760,8 +818,11 @@ MIT License
 ## 功能特性
 
 - 🚀 一键上传到远程服务器
+
 - 🔄 增量同步（仅上传变更文件）
+
 - 🔐 自动绑定 SSH 私钥
+
 - 🌍 多语言支持（中/英/日）
 
 ## 安装
@@ -773,10 +834,12 @@ MIT License
 ## 快速开始
 
 1. 将私钥放入 `.claude/sftp-cc/` 目录
+
 2. 初始化配置：
    ```bash
    bash scripts/sftp-init.sh --host example.com --username deploy --remote-path /var/www
    ```
+
 3. 上传代码：
    ```
    User: "同步代码到服务器"
@@ -807,6 +870,7 @@ MIT License
 ## 其他语言
 
 - [English](README.md)
+
 - [日本語](README_JP.md)
 
 ## 授权
@@ -824,8 +888,11 @@ Claude Code 用の汎用 SFTP アップロードツール
 ## 機能
 
 - 🚀 ワンコマンドでリモートサーバーにアップロード
+
 - 🔄 増分同期（変更ファイルのみ）
+
 - 🔐 SSH 秘密鍵の自動バインド
+
 - 🌍 多言語サポート（英語/中国語/日本語）
 
 ## インストール
@@ -837,10 +904,12 @@ Claude Code 用の汎用 SFTP アップロードツール
 ## クイックスタート
 
 1. 秘密鍵を `.claude/sftp-cc/` に配置
+
 2. 初期化：
    ```bash
    bash scripts/sftp-init.sh --host example.com --username deploy --remote-path /var/www
    ```
+
 3. アップロード：
    ```
    ユーザー：「サーバーに同期する」
@@ -871,6 +940,7 @@ Claude Code 用の汎用 SFTP アップロードツール
 ## 他の言語
 
 - [English](README.md)
+
 - [中文](README_CN.md)
 
 ## ライセンス
@@ -972,13 +1042,19 @@ claude
 ```
 
 **利点**：
+
 - ✅ 無料ホスティング
+
 - ✅ 組み込みバージョン管理
+
 - ✅ フィードバック用の Issue と PR
+
 - ✅ リリース管理
 
 **欠点**：
+
 - ❌ GitHub アカウントが必要
+
 - ❌ ユーザーは GitHub アクセスが必要
 
 ### 7.7.2 セルフホスト配布
@@ -1001,8 +1077,11 @@ your-domain.com/
 ```
 
 **要件**：
+
 - HTTPS 対応サーバー
+
 - 静的ファイルホスティング
+
 - CORS ヘッダー（必要な場合）
 
 ### 7.7.3 プライベート/内部配布
@@ -1053,13 +1132,21 @@ git clone git@github.com:your-org/sftp-cc-internal.git
 ### 公開チェックリスト
 
 - [ ] `marketplace.json` にすべての必須フィールドがある
+
 - [ ] `SKILL.md` が存在し、適切にフォーマット
+
 - [ ] すべてのスクリプトが ShellCheck に合格
+
 - [ ] README.md が完成
+
 - [ ] LICENSE ファイルが含まれている
+
 - [ ] テストがローカルで合格
+
 - [ ] バージョン番号がインクリメント
+
 - [ ] GitHub Release が作成
+
 - [ ] プラグインが正常に検証
 
 ---
@@ -1069,12 +1156,15 @@ git clone git@github.com:your-org/sftp-cc-internal.git
 ### 練習問題 7-1: marketplace.json を作成
 
 Skill の完全な `marketplace.json` を作成：
+
 1. `.claude-plugin/` ディレクトリを作成
+
 2. すべてのフィールドを含む `marketplace.json` を作成：
    - name、description、version
    - author、license
    - repository、homepage
    - keywords、categories
+
 3. `jq` で検証：
    ```bash
    jq . .claude-plugin/marketplace.json
@@ -1083,11 +1173,17 @@ Skill の完全な `marketplace.json` を作成：
 ### 練習問題 7-2: リリーススクリプトを作成
 
 `scripts/release.sh` を作成：
+
 1. 認証情報から GitHub トークンを取得
+
 2. 新しいバージョン番号を計算
+
 3. GitHub API を介してタグを作成
+
 4. git log から変更ログを生成
+
 5. GitHub API を介してリリースを作成
+
 6. 成功時にリリース URL を表示
 
 ドライランでテスト（`--dry-run` フラグを追加）。
@@ -1095,10 +1191,15 @@ Skill の完全な `marketplace.json` を作成：
 ### 練習問題 7-3: 多言語 README を作成
 
 国際ドキュメントを追加：
+
 1. 英語の `README.md` を作成
+
 2. `README_CN.md`（中国語）を作成
+
 3. `README_JP.md`（日本語）を作成
+
 4. 各ファイルに言語リンクを追加
+
 5. ブラウザで表示してテスト
 
 ---
@@ -1107,20 +1208,26 @@ Skill の完全な `marketplace.json` を作成：
 
 ### GitHub API ドキュメント
 - [GitHub REST API](https://docs.github.com/ja/rest)
+
 - [リリースの作成](https://docs.github.com/ja/rest/releases/releases)
+
 - [Git リファレンス API](https://docs.github.com/ja/rest/git/refs)
 
 ### Semantic Versioning
 - [SemVer 2.0.0 仕様](https://semver.org/lang/ja/)
+
 - [Semantic Versioning の説明](https://blog.npmjs.org/post/617484925549558784/semantic-versioning)
 
 ### プラグイン例
 - [sftp-cc リポジトリ](https://github.com/toohamster/sftp-cc)
+
 - [Claude Code Plugin Marketplace](https://claude.ai/marketplace)
 
 ### 副読本
 - 「Writing Great Release Notes」- Keep a Changelog
+
 - 「GitHub Actions for CI/CD」- ワークフローの自動化
+
 - 「Open Source Licensing」- ライセンスの選択
 
 ---
@@ -1130,12 +1237,19 @@ Skill の完全な `marketplace.json` を作成：
 **第 8 章：トピックとベストプラクティス**
 
 第 8 章では、高度なトピックをカバーします：
+
 - パフォーマンス最適化テクニック
+
 - セキュリティベストプラクティス（コマンドインジェクションを回避）
+
 - コード組織と命名規則
+
 - `trap` を使用した高度なエラーハンドリング
+
 - よくある問題のトラブルシューティング
+
 - 実世界のケーススタディ
+
 - パフォーマンスプロファイリング
 
 第 8 章の終わりまでに、本番対応の Skill を書けるようになります！

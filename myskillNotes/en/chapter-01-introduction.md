@@ -3,9 +3,13 @@
 > "The best tools are the ones you forget exist." — Alan Kay
 
 In this chapter, you will learn:
+
 - What Claude Code Skill is and what problems it solves
+
 - Core components and working principles of Plugin architecture
+
 - How to set up a complete development environment
+
 - Write your first Hello World Skill hands-on
 
 ---
@@ -27,8 +31,11 @@ Claude Code is a CLI programming assistant launched by Anthropic, and **Skill** 
 ### 1.1.2 Formal Definition of Skill
 
 **Claude Code Skill** is a Markdown-based plugin definition format that tells Claude:
+
 1. **When to trigger** — What the user says to invoke this Skill
+
 2. **How to execute** — What scripts or commands to run after triggering
+
 3. **What capabilities to provide** — Specific functions the Skill can complete
 
 Expressed in code, a Skill at minimum contains:
@@ -89,13 +96,19 @@ To understand Skill's positioning, the best approach is to compare with other sy
 | **Typical Development Time** | 30 minutes | Days to weeks |
 
 **When to Choose Skill**:
+
 - ✅ Need to quickly implement automation scripts
+
 - ✅ Functionality can be completed via command line
+
 - ✅ Want to trigger with natural language
 
 **When to Choose VS Code Extension**:
+
 - ✅ Need UI interface interaction
+
 - ✅ Need deep VS Code feature integration (debugger, terminal)
+
 - ✅ Need complex user configuration interface
 
 #### vs JetBrains Plugins
@@ -163,8 +176,11 @@ Script execution instructions...
 ```
 
 **Key Elements**:
+
 - **YAML Frontmatter**: Metadata at the top (between `---`)
+
 - **Trigger Words**: Phrases that activate the Skill
+
 - **Execution Logic**: What happens when triggered
 
 #### 2. ${CLAUDE_PLUGIN_ROOT} Variable
@@ -173,7 +189,9 @@ Script execution instructions...
 **Important**: ${CLAUDE_PLUGIN_ROOT} is an internal Skill variable injected by Claude Code
 
 - Only valid in Skill context
+
 - Automatically resolved to plugin root directory path at runtime
+
 - Example: `~/.claude/plugins/marketplaces/my-plugin/`
 ```
 
@@ -194,7 +212,9 @@ Script executes with resolved path
 The scripts/ directory stores executable scripts:
 
 - **Supported Languages**: Shell, Python, Ruby, Node.js, etc.
+
 - **Access Method**: Via `${CLAUDE_PLUGIN_ROOT}/scripts/`
+
 - **Best Practice**: Keep scripts modular and well-documented
 
 **Example Script Structure**:
@@ -340,10 +360,15 @@ description: My First Skill — Says hello when you greet it
 ## When to trigger
 
 When user says:
+
 - "hello"
+
 - "hi"
+
 - "hey there"
+
 - "你好"
+
 - "こんにちは"
 
 ## Execute
@@ -383,22 +408,31 @@ After setup, test your Skill:
 ### 1.5.1 Start Simple
 
 Begin with a simple "Hello World" Skill:
+
 - Single trigger word
+
 - Single echo command
+
 - No complex logic
 
 ### 1.5.2 Test Incrementally
 
 Build and test step by step:
+
 1. Test script independently first
+
 2. Add SKILL.md wrapper
+
 3. Test in Claude Code
 
 ### 1.5.3 Document as You Go
 
 Good documentation helps:
+
 - Explain what your Skill does
+
 - List all trigger words
+
 - Provide usage examples
 
 ---
@@ -417,9 +451,13 @@ Good documentation helps:
 ### What You've Learned
 
 - ✅ What Claude Code Skill is and its purpose
+
 - ✅ Plugin architecture: SKILL.md, scripts/, marketplace.json
+
 - ✅ How variable injection works
+
 - ✅ How to set up development environment
+
 - ✅ Created your first Hello World Skill
 
 ---
@@ -429,15 +467,21 @@ Good documentation helps:
 ### Exercise 1-1: Customize Hello World
 
 Modify your Hello World Skill to:
+
 - Add more trigger words in your native language
+
 - Display a personalized message
+
 - Include the current date/time
 
 ### Exercise 1-2: Create a Weather Skill
 
 Create a simple weather skill that:
+
 - Triggers on "weather" or "what's the weather"
+
 - Displays a mock weather report
+
 - Uses `curl` to fetch real weather data (optional)
 
 Example:
@@ -448,7 +492,9 @@ curl wttr.in?format=3
 ### Exercise 1-3: Explore Existing Skills
 
 - Browse the [Plugin Marketplace](https://claude.ai/marketplace)
+
 - Study 2-3 existing Skills
+
 - Note their trigger word patterns
 
 ---
@@ -457,14 +503,17 @@ curl wttr.in?format=3
 
 ### Official Documentation
 - [Claude Code Documentation](https://docs.anthropic.com/claude-code/)
+
 - [Plugin Marketplace](https://claude.ai/marketplace)
 
 ### Example Projects
 - [sftp-cc](https://github.com/toohamster/sftp-cc) — SFTP upload tool (this book's companion project)
+
 - [More examples](https://github.com/topics/claude-code-skill)
 
 ### Further Reading
 - "Advanced Bash-Scripting Guide" — Deep dive into Shell scripting
+
 - "Writing Secure Code" — Security best practices
 
 ---
@@ -474,9 +523,13 @@ curl wttr.in?format=3
 **Chapter 2: Project Planning and Design**
 
 In Chapter 2, we'll dive into project planning and design:
+
 - Requirements analysis from pain points
+
 - Functional boundary definition (what to do vs. what NOT to do)
+
 - Directory structure best practices
+
 - Configuration file design principles
 
 By the end of Chapter 2, you'll complete the full design document for sftp-cc project.

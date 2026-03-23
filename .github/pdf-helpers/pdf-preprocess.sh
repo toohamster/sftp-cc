@@ -7,7 +7,8 @@
 # Usage: ./pdf-preprocess.sh <input-dir> <output-dir>
 #
 # Issues fixed:
-# - Add blank lines between consecutive numbered list items (for pandoc)
+# - Add blank line before first list item (if preceded by text)
+# - Add blank lines between consecutive numbered list items
 # - Add blank lines between consecutive bullet list items
 
 set -euo pipefail
@@ -27,26 +28,45 @@ find "$INPUT_DIR" -name "*.md" -type f | while read -r file; do
     # Create output directory structure
     mkdir -p "$(dirname "$output_file")"
 
-    # Process the file: add blank lines between consecutive list items
-    awk '
-    {
-        # Check if current line is a numbered list item (1. 2. 3. etc)
-        is_numbered = /^[0-9]+\. /
+    # Process the file using perl for better regex support
+    perl -e '
+        use strict;
+        use warnings;
 
-        # Check if current line is a bullet list item (- * +)
-        is_bullet = /^[-*+] /
+        my @lines;
+        my $prev_was_list = 0;
+        my $prev_was_text = 0;
 
-        # If previous line was also a list item of same type, add blank line before
-        if ((is_numbered && prev_numbered) || (is_bullet && prev_bullet)) {
-            print ""
+        while (my $line = <STDIN>) {
+            my $is_numbered = $line =~ /^[0-9]+\. /;
+            my $is_bullet = $line =~ /^[-*+] /;
+            my $is_list = $is_numbered || $is_bullet;
+            my $is_empty = $line =~ /^\s*$/;
+            my $is_heading = $line =~ /^#{1,6} /;
+            my $is_code_fence = $line =~ /^`{3,}/;
+            my $is_table = $line =~ /^\|/;
+            my $is_blockquote = $line =~ /^>/;
+
+            # Add blank line before first list item if preceded by text
+            if ($is_list && !$prev_was_list && $prev_was_text) {
+                push @lines, "\n";
+            }
+
+            # Add blank line between consecutive list items
+            if ($is_list && $prev_was_list) {
+                push @lines, "\n";
+            }
+
+            push @lines, $line;
+
+            # Update state
+            $prev_was_list = $is_list;
+            $prev_was_text = !$is_empty && !$is_heading && !$is_code_fence && !$is_table && !$is_blockquote && !$is_list;
+            $prev_was_text = 0 if $is_empty;  # Reset text flag on empty line
         }
 
-        print $0
-
-        prev_numbered = is_numbered
-        prev_bullet = is_bullet
-    }
-    ' "$file" > "$output_file"
+        print @lines;
+    ' < "$file" > "$output_file"
 
     echo "Processed: $rel_path"
 done

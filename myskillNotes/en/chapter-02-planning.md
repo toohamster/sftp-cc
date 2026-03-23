@@ -3,12 +3,19 @@
 > "If you can't describe it simply, you haven't truly understood it." — Albert Einstein
 
 In this chapter, you will learn:
+
 - How to conduct requirements analysis starting from pain points
+
 - Methods for defining functional boundaries (what to do vs. what NOT to do)
+
 - Modular functional design techniques
+
 - Best practices for directory structure
+
 - Configuration file design principles
+
 - Trigger word design methodology
+
 - Technology selection evaluation framework
 
 ---
@@ -25,13 +32,17 @@ Good software starts with real problems, not technology itself. Let's document t
 Scenario: Web project development using Claude Code
 
 1. Developer writes code locally using Claude Code
+
 2. Claude modifies src/user/controller.php
+
 3. Need to verify functionality on test server
+
 4. Manual operations:
    - Open terminal
    - SSH login to test server
    - git pull to fetch latest code
    - Or use scp to upload modified files
+
 5. Repeat steps 3-4 every time Claude modifies code
 ```
 
@@ -56,9 +67,13 @@ Scenario: Web project development using Claude Code
 
 ```
 If a Claude Code Skill could:
+
 - Understand natural language like "sync code to server"
+
 - Automatically detect which files were modified
+
 - Only upload changed files (incremental)
+
 - Automatically handle SSH keys and permissions
 
 That would greatly improve development efficiency.
@@ -137,10 +152,15 @@ Transform user requirements into functional requirements with priority labels:
 Equally important is defining what NOT to do:
 
 **Out of Scope**:
+
 - ❌ Download files from server (one-way sync only)
+
 - ❌ Real-time file change monitoring
+
 - ❌ Multi-server simultaneous deployment
+
 - ❌ Remote file editing
+
 - ❌ Version control operations (git push/pull)
 
 **Rationale**:
@@ -229,7 +249,9 @@ The core of incremental upload is detecting changed files:
       git ls-files --others --exclude-standard
 
 3. Merge and deduplicate file list
+
 4. Filter by exclude patterns
+
 5. Generate upload list
 ```
 
@@ -317,13 +339,19 @@ Support both Plugin Marketplace and manual installation:
 
 ```
 Plugin Installation:
+
 1. /plugin marketplace add <url>
+
 2. /plugin install sftp-cc
+
 3. Done! ✅
 
 Manual Installation:
+
 1. git clone <repo>
+
 2. bash install.sh /path/to/project
+
 3. Done! ✅
 ```
 
@@ -418,21 +446,33 @@ Design trigger words for different scenarios:
 
 ```
 English:
+
 - "sync code to server"
+
 - "upload to server"
+
 - "deploy code"
+
 - "push to server" (with SFTP context)
+
 - "sftp upload"
 
 Chinese:
+
 - "同步代码到服务器"
+
 - "上传到服务器"
+
 - "部署代码"
+
 - "sftp 上传"
 
 Japanese:
+
 - "サーバーに同期する"
+
 - "デプロイする"
+
 - "sftp アップロード"
 ```
 
@@ -440,17 +480,25 @@ Japanese:
 
 ```
 English:
+
 - "bind sftp private key"
+
 - "bind ssh key"
+
 - "auto-bind private key"
 
 Chinese:
+
 - "绑定 SFTP 私钥"
+
 - "绑定私钥"
+
 - "自动绑定私钥"
 
 Japanese:
+
 - "秘密鍵をバインドする"
+
 - "SSH 鍵をバインドする"
 ```
 
@@ -458,16 +506,23 @@ Japanese:
 
 ```
 English:
+
 - "initialize sftp config"
+
 - "setup sftp"
+
 - "create sftp configuration"
 
 Chinese:
+
 - "初始化 SFTP 配置"
+
 - "配置 SFTP"
 
 Japanese:
+
 - "SFTP 設定を初期化"
+
 - "SFTP 設定"
 ```
 
@@ -513,14 +568,21 @@ Stick to system built-in commands:
 
 ```
 Allowed Commands:
+
 - sftp (OpenSSH package, standard on most systems)
+
 - git (standard developer tool)
+
 - grep, sed, awk (standard text processing)
+
 - find, stat, chmod (standard file operations)
 
 Not Allowed:
+
 - jq (requires separate installation)
+
 - Python scripts (requires Python installation)
+
 - curl/wget (use sftp instead for file transfer)
 ```
 
@@ -634,11 +696,17 @@ Continue development
 ### What You've Learned
 
 - ✅ How to analyze requirements from pain points
+
 - ✅ How to define functional boundaries
+
 - ✅ Modular functional design techniques
+
 - ✅ Directory structure best practices
+
 - ✅ Configuration file design principles
+
 - ✅ Trigger word design methodology
+
 - ✅ Technology selection evaluation
 
 ---
@@ -657,6 +725,7 @@ Choose a function you want to implement and complete the following design:
 
 ## User Personas
 - Primary User: [Who will use this most?]
+
 - Secondary User: [Who else might use it?]
 
 ## Requirements List
@@ -666,19 +735,25 @@ Choose a function you want to implement and complete the following design:
 
 ## Functional Boundaries
 **Out of Scope:**
+
 - 
+
 - 
 
 ## Trigger Words
 - English: 
+
 - Chinese: 
+
 - Japanese: 
 ```
 
 ### Exercise 2-2: Analyze an Existing Skill
 
 1. Browse the [Plugin Marketplace](https://claude.ai/marketplace)
+
 2. Choose one Skill
+
 3. Analyze its:
    - Target users
    - Core requirements
@@ -691,14 +766,17 @@ Choose a function you want to implement and complete the following design:
 
 ### Requirements Analysis
 - "User Stories Applied" by Mike Cohn
+
 - "Inspired" by Marty Cagan
 
 ### System Design
 - "Designing Data-Intensive Applications" by Martin Kleppmann
+
 - "Clean Architecture" by Robert C. Martin
 
 ### Configuration Design
 - [12factor.net - Config](https://12factor.net/config)
+
 - JSON specification: [RFC 8259](https://tools.ietf.org/html/rfc8259)
 
 ---
@@ -708,10 +786,15 @@ Choose a function you want to implement and complete the following design:
 **Chapter 3: Writing Your First Skill**
 
 In Chapter 3, we'll write the first Skill from scratch:
+
 - YAML frontmatter detailed explanation
+
 - Complete SKILL.md structure
+
 - Trigger word writing techniques
+
 - Script execution instructions
+
 - First runnable Skill
 
 By the end of Chapter 3, you'll have your first working Skill!

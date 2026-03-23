@@ -3,14 +3,23 @@
 > "好的软件需要好的分发渠道。" — 开源软件格言
 
 本章你将学到：
+
 - Plugin Marketplace 架构和工作原理
+
 - marketplace.json 完整字段详解
+
 - SemVer 语义化版本管理规范
+
 - GitHub HTTP API 发布流程
+
 - 完整的自动化发布脚本
+
 - 多语言 README 编写指南
+
 - 持续集成（GitHub Actions）配置
+
 - Plugin 安装和验证方法
+
 - Release Notes 编写技巧
 
 ---
@@ -72,14 +81,21 @@
 ```
 
 **优点**：
+
 - ✅ 自动更新（插件系统自动同步）
+
 - ✅ 统一管理（所有插件在一个目录）
+
 - ✅ 版本控制（可以回退到旧版本）
+
 - ✅ 发现性好（通过 Marketplace 浏览）
 
 **缺点**：
+
 - ❌ 需要推送到 GitHub
+
 - ❌ 旧版本 Claude 可能不支持
+
 - ❌ 需要 network 访问
 
 #### 方式 2：手动安装
@@ -111,14 +127,21 @@ target-project/
 ```
 
 **优点**：
+
 - ✅ 本地即可安装
+
 - ✅ 兼容旧版本
+
 - ✅ 项目级别隔离（每个项目独立配置）
+
 - ✅ 不需要 GitHub
 
 **缺点**：
+
 - ❌ 不会自动更新
+
 - ❌ 每个项目需要单独安装
+
 - ❌ 配置分散
 
 ### 7.1.3 安装方式选择指南
@@ -394,6 +417,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - 新增 --delete 参数，支持同步删除远程文件
+
 - 新增日语触发词支持
 
 ### Changed
@@ -401,6 +425,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - 修复 JSON 解析在特殊字符下失败的问题
+
 - 修复私钥路径包含空格时的问题
 
 ## [2.1.1] - 2024-01-10
@@ -412,12 +437,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - 新增私钥自动绑定功能
+
 - 新增 sftp-keybind.sh 脚本
 
 ## [2.0.0] - 2024-01-01
 
 ### Changed
 - 重命名为 sftp-cc（原 sftp-cc-toomaster）
+
 - 重构目录结构
 
 ### Removed
@@ -792,9 +819,13 @@ main "$@"
 ## Features
 
 - **Incremental Upload**: Only upload changed files, save time
+
 - **Auto Key Binding**: Automatically find and bind SSH private key
+
 - **Permission Correction**: Auto-fix private key permissions (chmod 600)
+
 - **Multi-language**: Support English, Chinese, and Japanese
+
 - **Zero Dependencies**: Pure shell, no external tools required
 
 ## Installation
@@ -893,6 +924,7 @@ bash scripts/sftp-keybind.sh
 ### Skill not triggering
 
 1. Check if Plugin is installed: `/plugin list`
+
 2. Reinstall Plugin: `/plugin marketplace remove sftp-cc` then re-add
 
 ## License
@@ -910,9 +942,13 @@ MIT
 ## 功能特性
 
 - **增量上传**: 只上传变更文件，节省时间
+
 - **私钥自动绑定**: 自动查找并绑定 SSH 私钥
+
 - **权限修正**: 自动修正私钥权限 (chmod 600)
+
 - **多语言支持**: 支持英文、中文、日文
+
 - **零外部依赖**: 纯 Shell 实现，无需额外工具
 
 ## 安装方法
@@ -1208,10 +1244,15 @@ See [CHANGELOG.md](https://github.com/${context.repo.owner}/${context.repo.repo}
 在发布前确认：
 
 - [ ] 所有测试通过
+
 - [ ] CHANGELOG.md 已更新
+
 - [ ] README 多语言文档已同步
+
 - [ ] marketplace.json version 已更新
+
 - [ ] 代码已提交并推送到 main 分支
+
 - [ ] 上一个 Release 已创建
 
 ---
@@ -1221,30 +1262,43 @@ See [CHANGELOG.md](https://github.com/${context.repo.owner}/${context.repo.repo}
 ### 基础练习
 
 **练习 7-1**：完善 marketplace.json
+
 - 添加所有可选字段
+
 - 验证 JSON 格式
 
 **练习 7-2**：编写 CHANGELOG
+
 - 按照 Keep a Changelog 格式
+
 - 记录所有历史版本
 
 ### 进阶练习
 
 **练习 7-3**：创建发布脚本
+
 - 实现完整的 release.sh
+
 - 支持 MAJOR/MINOR/PATCH
 
 **练习 7-4**：配置 GitHub Actions
+
 - 创建 CI 工作流
+
 - 创建自动发布工作流
 
 ### 实践项目
 
 为你的 Skill 完成一次完整发布：
+
 1. 创建 CHANGELOG.md
+
 2. 更新 marketplace.json
+
 3. 运行发布脚本
+
 4. 验证 Release 已创建
+
 5. 测试 Plugin 安装
 
 ---
@@ -1252,12 +1306,19 @@ See [CHANGELOG.md](https://github.com/${context.repo.owner}/${context.repo.repo}
 ## 下一章预告
 
 第 8 章将介绍**进阶技巧与最佳实践**：
+
 - 性能优化技巧
+
 - 安全最佳实践
+
 - 代码组织规范
+
 - 用户反馈处理
+
 - 故障排查清单
+
 - 扩展开发方向
+
 - 学习资源推荐
 
 ---

@@ -3,13 +3,21 @@
 > "Software is like entropy: It is difficult to grasp, weighs nothing, and obeys the Second Law of Thermodynamics; i.e., it always increases." — Norman Augustine
 
 In this chapter, you will learn:
+
 - Plugin Marketplace architecture and requirements
+
 - `marketplace.json` configuration (all fields explained)
+
 - Semantic Versioning (SemVer) specification
+
 - Creating GitHub Releases via API
+
 - Automated release workflow (git → tag → release)
+
 - Multi-language README structure
+
 - Plugin validation before publishing
+
 - Distribution strategies
 
 ---
@@ -127,7 +135,9 @@ sftp-cc/
 
 #### `name` (Required)
 - **Type:** String
+
 - **Format:** lowercase, hyphens allowed
+
 - **Purpose:** Unique identifier for your plugin
 
 ```json
@@ -142,7 +152,9 @@ sftp-cc/
 
 #### `description` (Required)
 - **Type:** String
+
 - **Max Length:** 200 characters
+
 - **Purpose:** Shown in marketplace listing
 
 ```json
@@ -152,12 +164,16 @@ sftp-cc/
 ```
 
 **Tips:**
+
 - Start with what it does
+
 - Include key benefit
+
 - Keep it concise
 
 #### `author` (Recommended)
 - **Type:** String
+
 - **Format:** Your name or GitHub username
 
 ```json
@@ -168,6 +184,7 @@ sftp-cc/
 
 #### `version` (Required)
 - **Type:** String
+
 - **Format:** Semantic Version (SemVer) - See Section 7.3
 
 ```json
@@ -178,6 +195,7 @@ sftp-cc/
 
 #### `license` (Recommended)
 - **Type:** String
+
 - **Format:** SPDX license identifier
 
 ```json
@@ -205,6 +223,7 @@ sftp-cc/
 
 #### `repository` (Recommended)
 - **Type:** Object
+
 - **Purpose:** Link to source code
 
 ```json
@@ -218,6 +237,7 @@ sftp-cc/
 
 #### `homepage` (Recommended)
 - **Type:** String
+
 - **Purpose:** Project homepage/documentation
 
 ```json
@@ -228,6 +248,7 @@ sftp-cc/
 
 #### `keywords` (Optional)
 - **Type:** Array of strings
+
 - **Purpose:** Help users find your plugin
 
 ```json
@@ -245,6 +266,7 @@ sftp-cc/
 
 #### `engines` (Optional)
 - **Type:** Object
+
 - **Purpose:** Specify Claude Code version requirements
 
 ```json
@@ -266,6 +288,7 @@ sftp-cc/
 
 #### `categories` (Optional)
 - **Type:** Array of strings
+
 - **Purpose:** Group related plugins
 
 ```json
@@ -279,12 +302,19 @@ sftp-cc/
 ```
 
 **Common Categories:**
+
 - `productivity` - Workflow improvements
+
 - `file-operations` - File manipulation
+
 - `deployment` - Deployment tools
+
 - `code-generation` - Code creation
+
 - `testing` - Testing utilities
+
 - `documentation` - Docs generation
+
 - `integration` - External services
 
 ### 7.2.3 Validation
@@ -328,8 +358,11 @@ Semantic Versioning 2.0.0 (SemVer) is a versioning scheme that conveys meaning a
 Increment for backward-compatible bug fixes:
 
 - Fix a bug in existing functionality
+
 - Security patches
+
 - Performance improvements (no API changes)
+
 - Documentation updates
 
 **Examples:**
@@ -344,7 +377,9 @@ Increment for backward-compatible bug fixes:
 Increment for backward-compatible new features:
 
 - New Skills or scripts
+
 - New configuration options (with defaults)
+
 - Extended functionality (doesn't break existing)
 
 **Examples:**
@@ -359,8 +394,11 @@ Increment for backward-compatible new features:
 Increment for breaking changes:
 
 - Removing or renaming Skills
+
 - Changing configuration file format (breaking existing configs)
+
 - Changing script behavior in incompatible ways
+
 - Removing deprecated features
 
 **Examples:**
@@ -411,15 +449,23 @@ Increment for breaking changes:
 ### 7.4.1 Why Automate Releases?
 
 Manual releases are error-prone:
+
 - ❌ Forget to create tag
+
 - ❌ Wrong commit for tag
+
 - ❌ Inconsistent release notes
+
 - ❌ Missing files in release
 
 Automated releases are:
+
 - ✅ Consistent
+
 - ✅ Repeatable
+
 - ✅ Traceable
+
 - ✅ Fast
 
 ### 7.4.2 GitHub API Overview
@@ -435,7 +481,9 @@ GitHub provides REST API for creating releases:
 | `/repos/{owner}/{repo}` | GET | Get repository info |
 
 **Authentication:**
+
 - Use Personal Access Token (PAT) or OAuth token
+
 - Scope required: `repo` (full control of private repositories)
 
 ### 7.4.3 Getting Your GitHub Token
@@ -461,9 +509,13 @@ echo $GITHUB_TOKEN
 #### Method 3: Create Personal Access Token
 
 1. Go to GitHub → Settings → Developer settings → Personal access tokens
+
 2. Click "Generate new token (classic)"
+
 3. Select scope: `repo` (full control)
+
 4. Generate and copy token
+
 5. Store securely (password manager, `~/.netrc`, etc.)
 
 ### 7.4.4 Creating a Tag via API
@@ -696,8 +748,11 @@ Universal SFTP upload tool for Claude Code.
 ## Features
 
 - 🚀 One-command upload to remote server
+
 - 🔄 Incremental sync (only changed files)
+
 - 🔐 Auto-binding SSH private key
+
 - 🌍 Multi-language support (EN/ZH/JA)
 
 ## Installation
@@ -709,10 +764,12 @@ Universal SFTP upload tool for Claude Code.
 ## Quick Start
 
 1. Place your private key in `.claude/sftp-cc/`
+
 2. Run initialization:
    ```bash
    bash scripts/sftp-init.sh --host example.com --username deploy --remote-path /var/www
    ```
+
 3. Upload code:
    ```
    User: "Sync code to server"
@@ -743,6 +800,7 @@ Edit `.claude/sftp-cc/sftp-config.json`:
 ## Other Languages
 
 - [中文](README_CN.md)
+
 - [日本語](README_JP.md)
 
 ## License
@@ -760,8 +818,11 @@ MIT License
 ## 功能特性
 
 - 🚀 一键上传到远程服务器
+
 - 🔄 增量同步（仅上传变更文件）
+
 - 🔐 自动绑定 SSH 私钥
+
 - 🌍 多语言支持（中/英/日）
 
 ## 安装
@@ -773,10 +834,12 @@ MIT License
 ## 快速开始
 
 1. 将私钥放入 `.claude/sftp-cc/` 目录
+
 2. 初始化配置：
    ```bash
    bash scripts/sftp-init.sh --host example.com --username deploy --remote-path /var/www
    ```
+
 3. 上传代码：
    ```
    User: "同步代码到服务器"
@@ -807,6 +870,7 @@ MIT License
 ## 其他语言
 
 - [English](README.md)
+
 - [日本語](README_JP.md)
 
 ## 授权
@@ -824,8 +888,11 @@ Claude Code 用の汎用 SFTP アップロードツール
 ## 機能
 
 - 🚀 ワンコマンドでリモートサーバーにアップロード
+
 - 🔄 増分同期（変更ファイルのみ）
+
 - 🔐 SSH 秘密鍵の自動バインド
+
 - 🌍 多言語サポート（英語/中国語/日本語）
 
 ## インストール
@@ -837,10 +904,12 @@ Claude Code 用の汎用 SFTP アップロードツール
 ## クイックスタート
 
 1. 秘密鍵を `.claude/sftp-cc/` に配置
+
 2. 初期化：
    ```bash
    bash scripts/sftp-init.sh --host example.com --username deploy --remote-path /var/www
    ```
+
 3. アップロード：
    ```
    User: "サーバーに同期する"
@@ -871,6 +940,7 @@ Claude Code 用の汎用 SFTP アップロードツール
 ## 他の言語
 
 - [English](README.md)
+
 - [中文](README_CN.md)
 
 ## ライセンス
@@ -972,13 +1042,19 @@ Simplest approach - host on GitHub:
 ```
 
 **Pros:**
+
 - ✅ Free hosting
+
 - ✅ Built-in version control
+
 - ✅ Issues and PRs for feedback
+
 - ✅ Release management
 
 **Cons:**
+
 - ❌ Requires GitHub account
+
 - ❌ Users need GitHub access
 
 ### 7.7.2 Self-hosted Distribution
@@ -1001,8 +1077,11 @@ your-domain.com/
 ```
 
 **Requirements:**
+
 - HTTPS enabled server
+
 - Static file hosting
+
 - CORS headers (if needed)
 
 ### 7.7.3 Private/Internal Distribution
@@ -1053,13 +1132,21 @@ For stable deployments, pin to specific version:
 ### Publishing Checklist
 
 - [ ] `marketplace.json` has all required fields
+
 - [ ] `SKILL.md` exists and is properly formatted
+
 - [ ] All scripts pass ShellCheck
+
 - [ ] README.md is complete
+
 - [ ] LICENSE file is included
+
 - [ ] Tests pass locally
+
 - [ ] Version number is incremented
+
 - [ ] GitHub Release is created
+
 - [ ] Plugin validates successfully
 
 ---
@@ -1071,11 +1158,13 @@ For stable deployments, pin to specific version:
 Create a complete `marketplace.json` for your Skill:
 
 1. Create `.claude-plugin/` directory
+
 2. Create `marketplace.json` with all fields:
    - name, description, version
    - author, license
    - repository, homepage
    - keywords, categories
+
 3. Validate with `jq`:
    ```bash
    jq . .claude-plugin/marketplace.json
@@ -1086,10 +1175,15 @@ Create a complete `marketplace.json` for your Skill:
 Create `scripts/release.sh`:
 
 1. Get GitHub token from credentials
+
 2. Calculate new version number
+
 3. Create tag via GitHub API
+
 4. Generate changelog from git log
+
 5. Create release via GitHub API
+
 6. Print release URL on success
 
 Test with a dry-run (add `--dry-run` flag).
@@ -1099,9 +1193,13 @@ Test with a dry-run (add `--dry-run` flag).
 Add international documentation:
 
 1. Write English `README.md`
+
 2. Create `README_CN.md` (Chinese)
+
 3. Create `README_JP.md` (Japanese)
+
 4. Add language links in each file
+
 5. Test by viewing in browser
 
 ---
@@ -1110,20 +1208,26 @@ Add international documentation:
 
 ### GitHub API Documentation
 - [GitHub REST API](https://docs.github.com/en/rest)
+
 - [Creating Releases](https://docs.github.com/en/rest/releases/releases)
+
 - [Git References API](https://docs.github.com/en/rest/git/refs)
 
 ### Semantic Versioning
 - [SemVer 2.0.0 Specification](https://semver.org/)
+
 - [Semantic Versioning Explained](https://blog.npmjs.org/post/617484925549558784/semantic-versioning)
 
 ### Plugin Examples
 - [sftp-cc Repository](https://github.com/toohamster/sftp-cc)
+
 - [Claude Code Plugin Marketplace](https://claude.ai/marketplace)
 
 ### Further Reading
 - "Writing Great Release Notes" - Keep a Changelog
+
 - "GitHub Actions for CI/CD" - Automate your workflow
+
 - "Open Source Licensing" - Choose a license
 
 ---
@@ -1133,12 +1237,19 @@ Add international documentation:
 **Chapter 8: Advanced Topics and Best Practices**
 
 In Chapter 8, we'll cover advanced topics:
+
 - Performance optimization techniques
+
 - Security best practices (avoid command injection)
+
 - Code organization and naming conventions
+
 - Advanced error handling with `trap`
+
 - Troubleshooting common issues
+
 - Real-world case studies
+
 - Performance profiling
 
 By the end of Chapter 8, you'll write production-ready Skills!

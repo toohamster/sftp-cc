@@ -3,9 +3,13 @@
 > "最好的工具是那些让你忘记它存在的工具。" — Alan Kay
 
 本章你将学到：
+
 - Claude Code Skill 是什么以及它能解决什么问题
+
 - Plugin 架构的核心组件和工作原理
+
 - 如何搭建完整的开发环境
+
 - 亲手编写你的第一个 Hello World Skill
 
 ---
@@ -27,8 +31,11 @@ Claude Code 是 Anthropic 推出的 CLI 编程助手，而 **Skill** 是它的�
 ### 1.1.2 Skill 的正式定义
 
 **Claude Code Skill** 是一个基于 Markdown 的插件定义格式，它告诉 Claude：
+
 1. **何时触发** — 用户说什么话时应该调用这个 Skill
+
 2. **如何执行** — 触发后运行什么脚本或命令
+
 3. **提供什么能力** — Skill 能完成的具体功能
 
 用代码来表达，一个 Skill 至少包含：
@@ -88,13 +95,19 @@ Skill 的能力边界几乎等同于你的 Shell 能做的事情。以下是一�
 | **典型开发时间** | 30 分钟 | 数天到数周 |
 
 **何时选择 Skill**：
+
 - ✅ 需要快速实现自动化脚本
+
 - ✅ 功能可以通过命令行完成
+
 - ✅ 希望用自然语言触发
 
 **何时选择 VS Code 扩展**：
+
 - ✅ 需要 UI 界面交互
+
 - ✅ 需要深度集成 VS Code 功能（如调试器、终端）
+
 - ✅ 需要复杂的用户配置界面
 
 #### vs JetBrains Plugin
@@ -112,9 +125,13 @@ Skill 的能力边界几乎等同于你的 Shell 能做的事情。以下是一�
 > "当我在 Claude Code 中修改代码后，需要手动到测试服务器拉取代码，效率很低。"
 
 从想法到可用的 Skill，整个过程只用了 2 小时：
+
 1. **设计触发词**（10 分钟）：确定 "sync code to server"、"同步代码到服务器" 等触发语
+
 2. **编写 SKILL.md**（20 分钟）：定义 Skill 结构和执行逻辑
+
 3. **开发脚本**（60 分钟）：sftp-push.sh 实现上传逻辑
+
 4. **测试调试**（30 分钟）：在 Claude 对话框中测试触发
 
 这个案例告诉我们：**Skill 开发的核心是脚本能力，而非插件框架本身。**
@@ -197,7 +214,9 @@ description: 通用 SFTP 上传工具
 ## 触发词定义
 
 当用户说以下内容时触发：
+
 - "sync code to server"
+
 - "同步代码到服务器"
 
 ## 执行指引
@@ -240,6 +259,7 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/sftp-push.sh
 #### 路径解析示例
 
 假设你的 Plugin 安装在：
+
 - Plugin 安装路径：`~/.claude/plugins/marketplaces/sftp-cc/`
 
 那么在 SKILL.md 中：
@@ -359,15 +379,22 @@ SKILL.md 中定义的触发词会被用于意图匹配：
 
 ````markdown
 **触发词**:
+
 - "sync code to server"
+
 - "同步代码到服务器"
+
 - "サーバーにコードを同期する"
 ````
 
 Claude 的 NLU（自然语言理解）模块会：
+
 1. **分词和词性标注**：将句子分解为有意义的单元
+
 2. **语义分析**：识别核心动词（sync/同步）和目标（server/服务器）
+
 3. **意图分类**：映射到预定义的意图类别
+
 4. **Skill 匹配**：找到最匹配的 Skill
 
 #### 提高匹配准确率的方法
@@ -375,25 +402,33 @@ Claude 的 NLU（自然语言理解）模块会：
 1. **覆盖多种表达方式**
 ```markdown
 - "sync code to server"      # 标准表达
+
 - "upload changes"           # 变体
+
 - "deploy to staging"        # 场景化表达
+
 - "把代码同步到服务器"        # 中文
 ```
 
 2. **避免歧义**
 ```markdown
 <!-- 不好：太泛化 -->
+
 - "push"                     # 可能与 git push 冲突
 
 <!-- 更好：明确上下文 -->
+
 - "sftp push"                # 明确是 SFTP
+
 - "push to server"           # 明确目标
 ```
 
 3. **提供否定示例**（在文档中说明）
 ```markdown
 **不会触发的情况**:
+
 - "git push" — 这是 Git 操作
+
 - "push notification" — 这是推送通知
 ```
 
@@ -403,7 +438,9 @@ Claude 的 NLU（自然语言理解）模块会：
 
 #### 运行位置
 - **执行环境**：用户本地机器的 Shell
+
 - **工作目录**：用户当前项目的根目录
+
 - **权限**：当前用户的权限
 
 #### 环境变量
@@ -572,10 +609,15 @@ description: 一个简单的打招呼 Skill
 ## 触发词
 
 当用户说以下内容时触发：
+
 - "hello"
+
 - "你好"
+
 - "こんにちは"
+
 - "打个招呼"
+
 - "测试一下"
 
 ## 执行脚本
@@ -688,9 +730,13 @@ set -x  # 打印执行的每一行
 ### 最佳实践清单
 
 - [ ] 触发词要覆盖多种自然语言表达
+
 - [ ] 脚本要有完善的错误处理
+
 - [ ] 使用颜色区分日志级别
+
 - [ ] 在 SKILL.md 中明确说明${CLAUDE_PLUGIN_ROOT}
+
 - [ ] 使用 Git 管理版本
 
 ---
@@ -700,17 +746,23 @@ set -x  # 打印执行的每一行
 ### 基础练习
 
 **练习 1-1**：修改 Hello World
+
 - 在 hello.sh 中添加用户的名字
+
 - 根据当前时间输出不同的问候语（早上好/下午好/晚上好）
 
 **练习 1-2**：多一个触发词
+
 - 添加 "say hi" 作为触发词
+
 - 测试是否能正确触发
 
 ### 进阶练习
 
 **练习 1-3**：创建 Weather Skill
+
 - 目标：创建一个查询天气的 Skill
+
 - 要求：
   - 触发词："天气怎么样"、"what's the weather"
   - 脚本：调用天气 API（如 wttr.in）
@@ -727,15 +779,20 @@ curl "wttr.in/$CITY?format=3"
 ### 实践项目
 
 **项目 1-1**：个人工具 Skill
+
 - 目标：解决你自己的一个实际需求
+
 - 示例：
   - 快速备份脚本
   - 项目初始化模板
   - 常用命令封装
 
 提交方式：
+
 1. 创建 GitHub 仓库
+
 2. 实现完整功能
+
 3. 编写 README 说明
 
 ---
@@ -744,14 +801,17 @@ curl "wttr.in/$CITY?format=3"
 
 ### 官方文档
 - [Claude Code 官方文档](https://docs.anthropic.com/claude-code/)
+
 - [Plugin Marketplace](https://claude.ai/marketplace)
 
 ### 示例项目
 - [sftp-cc](https://github.com/toohamster/sftp-cc) - 本书配套项目
+
 - [更多示例](https://github.com/topics/claude-code-skill)
 
 ### 进阶阅读
 - 《Advanced Bash-Scripting Guide》- 深入学习 Shell 脚本
+
 - 《Writing Secure Code》- 安全编程实践
 
 ---
@@ -759,9 +819,13 @@ curl "wttr.in/$CITY?format=3"
 ## 下一章预告
 
 第 2 章将带你进行**项目规划与设计**：
+
 - 如何从痛点出发进行需求分析
+
 - 功能边界的界定（做什么 vs 不做什么）
+
 - 目录结构的最佳实践
+
 - 配置文件的设计原则
 
 在第 2 章结束时，你将完成 sftp-cc 项目的完整设计文档。

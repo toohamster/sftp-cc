@@ -3,14 +3,23 @@
 > "调试是编程的必备技能，好的调试能力可以节省 10 倍的开发时间。" — 编程格言
 
 本章你将学到：
+
 - Shell 脚本调试基础（set 命令选项）
+
 - 日志级别设计和实现
+
 - verbose 模式的完整实现
+
 - 临时文件管理和清理
+
 - 错误处理的多种模式
+
 - 测试方法（单元测试、集成测试、dry-run）
+
 - 调试实战案例（真实问题排查）
+
 - 验证工具和自动化测试
+
 - 性能分析和优化
 
 ---
@@ -1120,6 +1129,7 @@ debug1: Authentication succeeded.
 
 # 步骤 2：检查脚本中的 SFTP 选项
 $ bash -x sftp-push.sh 2>&1 | grep sftp
+
 + sftp -P 22 -i /path/to/key -o StrictHostKeyChecking=no deploy@example.com
 
 # 步骤 3：测试完整命令
@@ -1170,6 +1180,7 @@ src/main.php
 
 # 步骤 4：检查脚本中的 git 命令
 $ bash -x sftp-push.sh 2>&1 | grep "git diff"
+
 + git -C /path/to/project diff --name-only --diff-filter=ACMR abc123def456 HEAD
 
 # 步骤 5：检查 last_hash 是否有效
@@ -1394,13 +1405,21 @@ bash -x script.sh 2>&1 | sort -t' ' -k2 -n | tail -20
 在发布前确认：
 
 - [ ] 使用 set -euo pipefail 严格模式
+
 - [ ] 日志函数完整（info/warn/error/debug）
+
 - [ ] 支持 -v/--verbose 详细输出
+
 - [ ] 临时文件正确清理
+
 - [ ] 参数验证完善
+
 - [ ] 命令依赖检查
+
 - [ ] 错误消息清晰有帮助
+
 - [ ] 通过 shellcheck 检查
+
 - [ ] 单元测试覆盖核心功能
 
 ---
@@ -1410,30 +1429,43 @@ bash -x script.sh 2>&1 | sort -t' ' -k2 -n | tail -20
 ### 基础练习
 
 **练习 6-1**：添加调试模式
+
 - 为你的脚本添加 --debug 参数
+
 - 启用 set -x 详细输出
 
 **练习 6-2**：实现日志级别
+
 - 添加 LOG_LEVEL 环境变量支持
+
 - 实现 ERROR/WARN/INFO/DEBUG 四级日志
 
 ### 进阶练习
 
 **练习 6-3**：编写单元测试
+
 - 为 json_get 等工具函数编写测试
+
 - 使用 assert_equals 等断言函数
 
 **练习 6-4**：实现重试机制
+
 - 为 SFTP 上传添加重试逻辑
+
 - 支持配置重试次数和间隔
 
 ### 实践项目
 
 为你的 Skill 添加完整的测试套件：
+
 1. 创建 tests/ 目录
+
 2. 编写 test-unit.sh（单元测试）
+
 3. 编写 test-integration.sh（集成测试）
+
 4. 添加 run-tests.sh（测试入口）
+
 5. 确保所有测试通过
 
 ---
@@ -1441,12 +1473,19 @@ bash -x script.sh 2>&1 | sort -t' ' -k2 -n | tail -20
 ## 下一章预告
 
 第 7 章将介绍**发布与分发流程**：
+
 - Plugin Marketplace 架构
+
 - marketplace.json 详解
+
 - 版本管理（SemVer 语义化版本）
+
 - GitHub HTTP API 发布
+
 - 完整的发布脚本
+
 - 多语言 README 编写
+
 - 持续集成（GitHub Actions）
 
 ---

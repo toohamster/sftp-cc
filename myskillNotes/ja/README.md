@@ -21,8 +21,11 @@
 本書は、SFTP アップロードツール（sftp-cc）を構築することで、Claude Code Skill 開発の完全なプロセスをガイドします。学習できること：
 
 - Claude Code Plugin アーキテクチャの理解
+
 - SKILL.md 作成テクニックの習得
+
 - 多言語サポート（i18n）の実装
+
 - Plugin Marketplace への公開
 
 ---
@@ -60,7 +63,9 @@
 [MIT License](../../LICENSE) の下で公開されています。
 
 - ✅ 無料で閲覧、複製、修正可能
+
 - ✅ 個人学習での利用
+
 - ✅ GitHub 等プラットフォームでの共有
 
 ### 印刷版/商業版

@@ -3,13 +3,21 @@
 > "The only way to learn a new programming language is by writing programs in it." — Dennis Ritchie
 
 In this chapter, you will learn:
+
 - Performance optimization techniques for shell scripts
+
 - Security best practices (avoid command injection)
+
 - Code organization and naming conventions
+
 - Advanced error handling with `trap`
+
 - Troubleshooting common issues
+
 - Real-world case studies from sftp-cc development
+
 - Performance profiling and benchmarking
+
 - Maintaining and iterating on your Skill
 
 ---
@@ -743,8 +751,11 @@ claude plugin reload sftp-cc
 ```
 
 **Common causes:**
+
 - ❌ SKILL.md not in correct directory
+
 - ❌ Trigger words too generic
+
 - ❌ Plugin not loaded
 
 **Fix:**
@@ -754,13 +765,19 @@ claude plugin reload sftp-cc
 ## When to trigger
 
 When user says:
+
 - "sync code to server"     ✓ Specific
+
 - "upload to server"        ✓ Specific
+
 - "deploy code"             ✓ Specific
 
 NOT just:
+
 - "upload"                  ✗ Too generic
+
 - "sync"                    ✗ Too generic
+
 - "push"                    ✗ Conflicts with git
 ````
 
@@ -1141,29 +1158,47 @@ info "Total subprocess calls: $subprocess_count"
 ### Best Practices Summary
 
 **Code Quality:**
+
 - [ ] Use `set -euo pipefail` for strict mode
+
 - [ ] Implement logging functions (info/warn/error/debug)
+
 - [ ] Follow naming conventions
+
 - [ ] Keep functions small and focused
+
 - [ ] Comment complex logic
 
 **Security:**
+
 - [ ] Never use `eval` with user input
+
 - [ ] Validate all file paths
+
 - [ ] Use `mktemp` for temp files
+
 - [ ] Set proper permissions (600 for keys)
+
 - [ ] Don't hardcode credentials
 
 **Performance:**
+
 - [ ] Batch operations (avoid loops with subprocesses)
+
 - [ ] Use arrays instead of string concatenation
+
 - [ ] Cache expensive operations
+
 - [ ] Profile to identify bottlenecks
 
 **Error Handling:**
+
 - [ ] Use `trap` for cleanup
+
 - [ ] Validate parameters early
+
 - [ ] Provide clear error messages
+
 - [ ] Handle interrupt signals
 
 ---
@@ -1175,9 +1210,13 @@ info "Total subprocess calls: $subprocess_count"
 Review an existing script for security issues:
 
 1. Search for `eval` usage - remove or replace
+
 2. Check all user input is validated
+
 3. Verify temp files use `mktemp`
+
 4. Confirm file permissions are set correctly
+
 5. Ensure no hardcoded credentials
 
 Create a checklist and fix any issues found.
@@ -1187,7 +1226,9 @@ Create a checklist and fix any issues found.
 Add timing to your script:
 
 1. Create a `profile()` function that times operations
+
 2. Wrap each major function with profiling
+
 3. Output timing summary at end:
    ```
    Performance Summary:
@@ -1196,6 +1237,7 @@ Add timing to your script:
    - upload_files: 1.89s
    Total: 2.35s
    ```
+
 3. Identify and optimize the slowest operation.
 
 ### Exercise 8-3: Implement Comprehensive Error Handling
@@ -1203,10 +1245,15 @@ Add timing to your script:
 Add robust error handling:
 
 1. Create `cleanup()` function for temp files
+
 2. Register `trap cleanup EXIT`
+
 3. Create `error_handler()` with line numbers
+
 4. Register `trap 'error_handler ${LINENO}' ERR`
+
 5. Add interrupt handlers for INT and TERM
+
 6. Test by interrupting mid-operation (Ctrl+C)
 
 ---
@@ -1215,22 +1262,30 @@ Add robust error handling:
 
 ### Shell Script Security
 - [OWASP Shell Injection Prevention](https://owasp.org/www-community/attacks/Command_Injection)
+
 - [ShellCheck Rules](https://github.com/koalaman/shellcheck/wiki/Rules)
+
 - "Secure Shell Scripting" - DEF CON talks
 
 ### Performance Optimization
 - [Bash Performance Tips](https://mywiki.wooledge.org/BashPerformance)
+
 - "Advanced Bash-Scripting Guide: Optimization"
+
 - [ShellCheck for performance issues](https://www.shellcheck.net/)
 
 ### Error Handling
 - [Bash trap documentation](https://www.gnu.org/software/bash/manual/html_node/Trap.html)
+
 - "Robust Shell Scripting" - Various blogs
+
 - [Exit codes reference](https://tldp.org/LDP/abs/html/exitcodes.html)
 
 ### Further Reading
 - "The Art of UNIX Programming" - Eric S. Raymond
+
 - "Classic Shell Scripting" - O'Reilly
+
 - "Linux Command Line and Shell Scripting Bible"
 
 ---
@@ -1241,81 +1296,130 @@ Congratulations! You've completed the entire book. Let's recap what you've learn
 
 ### Chapter 1: Introduction
 - What Claude Code Skill is
+
 - Plugin architecture (SKILL.md, marketplace.json)
+
 - `${CLAUDE_PLUGIN_ROOT}` variable
+
 - Development environment setup
+
 - Created your first Hello World Skill
 
 ### Chapter 2: Planning and Design
 - Requirements analysis from pain points
+
 - User personas and use cases
+
 - Functional boundaries (what to do and not do)
+
 - Directory structure planning
+
 - Configuration file design
 
 ### Chapter 3: Writing Your First Skill
 - SKILL.md structure and YAML frontmatter
+
 - Trigger word design
+
 - Script path configuration
+
 - Execution instructions
+
 - User guide documentation
 
 ### Chapter 4: Script Development
 - Shell script structure template
+
 - Global variables and constants
+
 - Color output and logging
+
 - JSON parsing (pure shell)
+
 - Git integration
+
 - SFTP batch mode upload
+
 - Error handling patterns
 
 ### Chapter 5: Internationalization
 - i18n importance and approaches
+
 - Variable-based multi-language (MSG_XXX)
+
 - i18n.sh implementation
+
 - Language detection and loading
+
 - Best practices for translations
 
 ### Chapter 6: Debugging and Testing
 - `set -euo pipefail` strict mode
+
 - Log level design
+
 - Verbose mode implementation
+
 - Temporary file management with `trap`
+
 - Error handling patterns
+
 - Dry-run mode
+
 - ShellCheck and other tools
 
 ### Chapter 7: Publishing and Distribution
 - Plugin Marketplace architecture
+
 - `marketplace.json` configuration
+
 - Semantic Versioning (SemVer)
+
 - GitHub Release automation
+
 - Multi-language README
+
 - Plugin validation
+
 - Distribution strategies
 
 ### Chapter 8: Advanced Topics (This Chapter)
 - Performance optimization
+
 - Security best practices
+
 - Code organization
+
 - Advanced error handling
+
 - Troubleshooting guide
+
 - Real-world case studies
 
 ### Your Journey Ahead
 
 You now have the knowledge to:
+
 1. ✅ Design and plan your own Skills
+
 2. ✅ Write robust shell scripts
+
 3. ✅ Implement multi-language support
+
 4. ✅ Debug and test effectively
+
 5. ✅ Publish to the Plugin Marketplace
+
 6. ✅ Maintain and iterate on your work
 
 **Next Steps:**
+
 1. Build your own unique Skill
+
 2. Share it with the community
+
 3. Learn from user feedback
+
 4. Continue improving your craft
 
 Good luck, and happy coding!

@@ -19,7 +19,9 @@ During the development of sftp-cc, the author summarized a complete methodology 
 ## Tech Stack
 
 - **Programming Languages**: Shell, PHP, JavaScript
+
 - **DevOps**: CI/CD, GitHub Actions, Docker
+
 - **Development Tools**: Claude Code, VS Code, Git
 
 ## Open Source Contributions
@@ -39,7 +41,9 @@ See [LICENSE](../../LICENSE) for details.
 ## Contact
 
 - **GitHub**: [github.com/toohamster](https://github.com/toohamster)
+
 - **Project Repository**: [github.com/toohamster/sftp-cc](https://github.com/toohamster/sftp-cc)
+
 - **Issue Tracker**: Please open an issue on GitHub
 
 ---
