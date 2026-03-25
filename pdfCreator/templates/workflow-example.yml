@@ -1,0 +1,62 @@
+name: Generate PDF from Markdown
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**/*.md'
+      - '.github/workflows/generate-pdf.yml'
+      - 'scripts/gfm2pdf.sh'
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pandoc, LaTeX and CJK fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-lang-chinese \
+            texlive-lang-japanese \
+            fonts-noto-cjk
+
+      - name: Create output directory
+        run: mkdir -p pdfs
+
+      - name: Convert GFM to PDF-ready format
+        run: |
+          bash scripts/gfm2pdf.sh docs/input /tmp/gfm2pdf
+
+      - name: Combine markdown files
+        run: |
+          {
+            cat /tmp/gfm2pdf/README.md
+            echo ""
+            echo "---"
+            echo ""
+            cat /tmp/gfm2pdf/chapter-*.md
+          } > pdfs/combined.md
+
+      - name: Generate PDF
+        run: |
+          pandoc pdfs/combined.md \
+            -o pdfs/output.pdf \
+            --pdf-engine=xelatex \
+            -V documentclass=report \
+            -V geometry:margin=1in \
+            -V mainfont="Noto Serif CJK SC" \
+            -V monofont="Noto Sans Mono CJK SC" \
+            --metadata title="My Book Title" \
+            --metadata author="Author Name"
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-pdf
+          path: pdfs/output.pdf
+          retention-days: 30

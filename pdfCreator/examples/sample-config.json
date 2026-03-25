@@ -1,0 +1,19 @@
+{
+  "title": "My Book Title",
+  "author": "Author Name",
+  "language": "zh-cn",
+  "font": {
+    "main": "Noto Serif CJK SC",
+    "mono": "Noto Sans Mono CJK SC"
+  },
+  "pagesize": "a4",
+  "margin": "1in",
+  "input": {
+    "directory": "docs",
+    "files": ["README.md", "chapter-*.md"]
+  },
+  "output": {
+    "directory": "output",
+    "filename": "book.pdf"
+  }
+}
